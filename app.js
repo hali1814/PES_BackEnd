@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./src/api/routes/index');
-var usersRouter = require('./src/api/routes/users');
+var connectAllAdminRouter = require('./src/admin/routes/index');
+var apiRouter = require('./src/api/routes/index');
 
 var app = express();
 
@@ -23,8 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // router ///////////////////////////////
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+connectAllAdminRouter(app);
 
 //////////////////////////////////////////
 
