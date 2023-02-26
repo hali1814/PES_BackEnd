@@ -1,9 +1,13 @@
-// var express = require('express');
-// var router = express.Router();
+var express = require('express');
+var apiRouter = express.Router();
+/////
+var productRouter = require('./route_api_product')
+var usersRouter = require('./route_api_user')
 
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+apiRouter.use(usersRouter)
+apiRouter.use(productRouter)
 
-// module.exports = router;
+
+
+
+module.exports = apiRouter

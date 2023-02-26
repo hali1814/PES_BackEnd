@@ -6,11 +6,11 @@ var login = require('./route_admin_login')
 
 
 
-const connectAllAdminRouter= (app) => {
+const connectAdminRouter= (app) => {
     
     app.use("/admin", login)
     // app.get('/', (req, res) => {
     //     res.redirect('/login')
     // })
 }
-module.exports = connectAllAdminRouter;
+module.exports = connectAdminRouter;
