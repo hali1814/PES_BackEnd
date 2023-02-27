@@ -7,7 +7,7 @@ const product = new Schema({
     type: Schema.Types.ObjectId,
     name: String,
     images: Array,
-    Stock: Array,
+    stock: Array,
     sale: Number,
     sold: String, 
     status: String,
