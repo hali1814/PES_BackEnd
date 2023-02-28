@@ -1,6 +1,6 @@
 var productModel = require('../../utils/models/product')
 
-const loginService = {
+const productService = {
     getALl: async function() {
         try {
             const instance = await productModel.find({ status: '0' })
@@ -41,4 +41,4 @@ const loginService = {
 
 
 
-module.exports = loginService
+module.exports = productService

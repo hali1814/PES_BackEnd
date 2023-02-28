@@ -18,7 +18,6 @@ const productController = {
   getProductsByGenre: async (req, res, next) => {
     const idGenre = req.params.idGenre
     const data = await productSerVice.getProductsByGenre(idGenre);
-    console.log(data)
     require('../injectMethod')(data, res.statusCode, res)
   }
   //
