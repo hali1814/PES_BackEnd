@@ -20,9 +20,9 @@ const loginController = {
       } else {
         if (data.data.password == password) {
           //success
-          if (data.data.status != "0") {
+          if (data.data.status == "3") {
             res.json(
-              standardJson.jsonFailure(
+              standardJson.jsonBaned(
                 { message: "Your account has been banned !!" },
                 res.statusCode
               )
@@ -53,7 +53,26 @@ const loginController = {
       res.json(data);
     }
   },
-  //
+  //GET api/profile
+  getProfiles: async (req, res, next) => {
+    const dataToken = res.locals.haohoa
+    const data = await loginService.loginService(dataToken.userName);
+    data.data.password = undefined
+    data.data.vouchers = undefined
+    require('../injectMethod')(data, res.statusCode, res)
+  },
+  //GET api/vouchers
+  getVouchers: async (req, res, next) => {
+    const dataToken = res.locals.haohoa
+    const data = await loginService.loginService(dataToken.userName);
+    data.data = data.data.vouchers
+    require('../injectMethod')(data, res.statusCode, res)
+  },
+  //GET api/logout
+  logout: async (req, res, next) => {
+    const dataToken = res.locals.haohoa
+    res.json(standardJson.jsonSuccess({message: 'OK'}, res.statusCode))
+  }
 };
 
 module.exports = loginController;

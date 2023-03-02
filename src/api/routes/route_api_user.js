@@ -5,8 +5,17 @@ var userSchema = require('../../utils/models/user')
 var loginController = require('../controllers/loginController')
 
 
-/* GET login page. */
+//POST login 
 router.post('/login', loginController.login);
+
+//GET login 
+router.get('/profiles',require('../middlewares/authorization') ,loginController.getProfiles);
+
+//GET login 
+router.get('/vouchers',require('../middlewares/authorization') ,loginController.getVouchers);
+
+//GET logout 
+router.get('/logout',require('../middlewares/authorization') ,loginController.logout);
 
 // /* GET register page. */
 // router.get('/register', function(req, res, next) {

@@ -27,4 +27,22 @@ const jsonFailure = (data, statusCode) => ({
   data: data,
 });
 
-module.exports = { jsonFailure, jsonSuccess, jsonFailureCallApi, jsonSuccessCallApi };
+
+const jsonBaned = (data, statusCode) => ({
+  status: "baned",
+  error: false,
+  responseTime: new Date(),
+  statusCode: statusCode,
+  author: "Hào hoa sành điệu 6 múi phong cách hàn quốc",
+  data: data,
+});
+
+const jsonInactive = (data, statusCode) => ({
+  status: "inactive",
+  error: false,
+  responseTime: new Date(),
+  statusCode: statusCode,
+  author: "Hào hoa sành điệu 6 múi phong cách hàn quốc",
+  data: data,
+});
+module.exports = { jsonFailure, jsonSuccess, jsonFailureCallApi, jsonSuccessCallApi, jsonBaned, jsonInactive };

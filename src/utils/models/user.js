@@ -12,6 +12,7 @@ const user = new Schema({
     address: String, 
     status: String,
     vouchers: Array,
+    card: String,
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });

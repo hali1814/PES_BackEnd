@@ -9,7 +9,7 @@ const loginService = {
         }catch(err) {
             return jsonFailureCallApi(err)
         }
-    }
+    },
 }
 
 
