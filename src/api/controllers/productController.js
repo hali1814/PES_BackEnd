@@ -19,6 +19,11 @@ const productController = {
     const idGenre = req.params.idGenre
     const data = await productSerVice.getProductsByGenre(idGenre);
     require('../injectMethod')(data, res.statusCode, res)
+  },
+  getProductById : async (req, res, next) => {
+    const idProduct = req.params.idProduct
+    const data = await productSerVice.getProductById(idProduct);
+    require('../injectMethod')(data, res.statusCode, res)
   }
   //
 };

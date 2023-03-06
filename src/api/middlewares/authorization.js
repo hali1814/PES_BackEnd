@@ -17,7 +17,7 @@ const authorizeToken = async (req, res, next) => {
   const authorization = req.headers["authorization"];
   if (!authorization){
     res.status(403).json(api_response);
-    return
+    return 
   } 
 
   const token = authorization.split(" ")[1];

@@ -72,6 +72,14 @@ const loginController = {
   logout: async (req, res, next) => {
     const dataToken = res.locals.haohoa
     res.json(standardJson.jsonSuccess({message: 'OK'}, res.statusCode))
+  },
+  //GET api//change_password
+  changePassword: async (req, res, next) => {
+    const { password, newPassword } = req.body
+    const username = res.locals.haohoa.userName
+    const data = await loginService.changePassWord(password, newPassword, username);
+    if (data.data)  res.json(standardJson.jsonSuccess({message: 'Change password successfully !!'}, res.statusCode))
+    else res.json(standardJson.jsonFailure({message: 'wrong password !!!', title: 'wrong password'}, res.statusCode))
   }
 };
 

@@ -1,5 +1,11 @@
 var productModel = require('../../utils/models/product')
+/////////////////
+const storeService = require('../services/storeService')
 
+
+
+
+///////////
 const productService = {
     getALl: async function() {
         try {
@@ -21,6 +27,19 @@ const productService = {
         try {
             const instance = await productModel.find({ type: idGenre})
             return require('../standardAPI').jsonSuccessCallApi(instance);
+        }catch(err) {
+            return require('../standardAPI').jsonFailureCallApi(err)
+        }
+    },
+    getProductById: async function(idProduct) {
+        try {
+            const instanceProduct = await productModel.findOne({ _id: idProduct})
+            const instanceStore = await storeService.getStore(instanceProduct.owner)
+            instanceProduct.toObject()
+            console.log(instanceStore)
+            const shop = {nameShop: instanceStore.data.nameShop, avatar: instanceStore.data.avatar, idShop: instanceStore.data._id}
+            const data = {...instanceProduct._doc, shop}
+            return require('../standardAPI').jsonSuccessCallApi(data);
         }catch(err) {
             return require('../standardAPI').jsonFailureCallApi(err)
         }

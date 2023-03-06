@@ -17,6 +17,11 @@ router.get('/vouchers',require('../middlewares/authorization') ,loginController.
 //GET logout 
 router.get('/logout',require('../middlewares/authorization') ,loginController.logout);
 
+
+
+//GET /change_password
+router.post('/change_password',require('../middlewares/authorization') ,loginController.changePassword);
+
 // /* GET register page. */
 // router.get('/register', function(req, res, next) {
 //   res.render('register', {layout: false});

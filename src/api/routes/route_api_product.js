@@ -12,6 +12,7 @@ router.get('/products/genre/:idGenre', require('../middlewares/authorization') ,
 //GET /api/products/flash_Sale
 router.get('/products/flash_sale', require('../middlewares/authorization') , productController.getFlashSale);
 
-
+//GET /api/product/:id
+router.get('/product/:idProduct', require('../middlewares/authorization') , productController.getProductById);
 
 module.exports = router;
