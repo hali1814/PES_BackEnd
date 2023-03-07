@@ -22,6 +22,13 @@ router.get('/logout',require('../middlewares/authorization') ,loginController.lo
 //GET /change_password
 router.post('/change_password',require('../middlewares/authorization') ,loginController.changePassword);
 
+//GET /update/profiles
+router.post('/update/profiles',require('../middlewares/authorization') ,loginController.updateProfile);
+
+
+//POST /register
+router.post('/register' ,loginController.register);
+
 // /* GET register page. */
 // router.get('/register', function(req, res, next) {
 //   res.render('register', {layout: false});

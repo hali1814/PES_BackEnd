@@ -1,4 +1,4 @@
-var bill = require('../../utils/models/genre')
+var bill = require('../../utils/models/bill')
 
 const billService = {
     getCart: async function(customer) {

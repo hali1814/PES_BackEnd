@@ -64,9 +64,8 @@ const loginController = {
   //GET api/vouchers
   getVouchers: async (req, res, next) => {
     const dataToken = res.locals.haohoa
-    const data = await loginService.loginService(dataToken.userName);
-    data.data = data.data.vouchers
-    require('../injectMethod')(data, res.statusCode, res)
+    const data = await loginService.getVouchers(dataToken.userName);
+    res.json(standardJson.jsonSuccess(data, res.statusCode))
   },
   //GET api/logout
   logout: async (req, res, next) => {
@@ -80,7 +79,21 @@ const loginController = {
     const data = await loginService.changePassWord(password, newPassword, username);
     if (data.data)  res.json(standardJson.jsonSuccess({message: 'Change password successfully !!'}, res.statusCode))
     else res.json(standardJson.jsonFailure({message: 'wrong password !!!', title: 'wrong password'}, res.statusCode))
+  },
+  //POST api/update/profiles
+  updateProfile: async (req, res, next) => {
+    const username = res.locals.haohoa.userName
+    const data = await loginService.updateProfile(username, req.body)
+    console.log(data)
+    if (data.data)  res.json(standardJson.jsonSuccess({message: 'Change profiles successfully !!'}, res.statusCode))
+    else res.json(standardJson.jsonFailure({message: data.err.toString()}, res.statusCode))
+  },
+  register: async (req, res, next) => {
+    const data = await loginService.registerAccount(req.body)
+    if (data.status == "success") res.json(standardJson.jsonSuccess({message: 'Register account successfully !!', account: data.data.userName}, res.statusCode))
+    else res.json(data)
   }
+
 };
 
 module.exports = loginController;
