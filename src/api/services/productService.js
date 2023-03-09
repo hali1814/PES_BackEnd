@@ -20,7 +20,7 @@ const productService = {
             const instance = await productModel.find({ sale: { $gte: 25} })
             return require('../standardAPI').jsonSuccessCallApi(instance);
         }catch(err) {
-            return require('../standardAPI')
+            return require('../standardAPI').jsonFailureCallApi(err)
         }
     },
     getProductsByGenre: async function(idGenre) {

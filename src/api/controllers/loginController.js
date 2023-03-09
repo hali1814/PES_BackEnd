@@ -30,9 +30,9 @@ const loginController = {
             return;
           }
 
-          const { nickName, userName } = data.data;
+          const { nickName, userName, _id } = data.data;
           const token = jwt.sign(
-            { nickName, userName },
+            { nickName, userName, _id },
             process.env.ACCESS_TOKEN_API
           );
           const content = {
@@ -69,7 +69,7 @@ const loginController = {
   },
   //GET api/logout
   logout: async (req, res, next) => {
-    const dataToken = res.locals.haohoa
+    
     res.json(standardJson.jsonSuccess({message: 'OK'}, res.statusCode))
   },
   //GET api//change_password
