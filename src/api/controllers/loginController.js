@@ -30,6 +30,17 @@ const loginController = {
             return;
           }
 
+          //success
+          if (data.data.status == "2") {
+            res.json(
+              standardJson.jsonInactive(
+                { message: "Your account is inactive !!" },
+                res.statusCode
+              )
+            );
+            return;
+          }
+
           const { nickName, userName, _id } = data.data;
           const token = jwt.sign(
             { nickName, userName, _id },
@@ -65,7 +76,7 @@ const loginController = {
   getVouchers: async (req, res, next) => {
     const dataToken = res.locals.haohoa
     const data = await loginService.getVouchers(dataToken.userName);
-    res.json(standardJson.jsonSuccess(data, res.statusCode))
+    require('../injectMethod')(data, res.statusCode, res)
   },
   //GET api/logout
   logout: async (req, res, next) => {
@@ -84,7 +95,6 @@ const loginController = {
   updateProfile: async (req, res, next) => {
     const username = res.locals.haohoa.userName
     const data = await loginService.updateProfile(username, req.body)
-    console.log(data)
     if (data.data)  res.json(standardJson.jsonSuccess({message: 'Change profiles successfully !!'}, res.statusCode))
     else res.json(standardJson.jsonFailure({message: data.err.toString()}, res.statusCode))
   },
