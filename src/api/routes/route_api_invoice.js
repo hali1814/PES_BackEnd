@@ -11,4 +11,8 @@ router.get('/bills/:status', require('../middlewares/authorization') , invoiceCo
 router.post('/bill/calculator', require('../middlewares/authorization') , invoiceController.calculatorBill);
 
 
+//GET /api/products/all
+router.post('/bill/add', require('../middlewares/authorization') , invoiceController.addBillFromCart);
+
+
 module.exports = router;

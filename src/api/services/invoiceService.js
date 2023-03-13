@@ -18,6 +18,14 @@ const invoiceService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
   },
+  addInvoice: async function (data) {
+    try {
+      const instance = await invoiceModel.insertMany(data)
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+  }
 };
 
 module.exports = invoiceService;

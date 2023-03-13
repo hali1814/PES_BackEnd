@@ -12,6 +12,7 @@ const billController = {
     const data = await billService.getCart(dataToken._id);
     data.data.forEach(element => {
         element.stock = element.stock.filter(stock => stock.size == element.size && stock.color == element.color)
+        element.stock = element.stock[0]
     });
     require('../injectMethod')(data, res.statusCode, res)
   },
@@ -21,7 +22,7 @@ const billController = {
     const {size, quantity, idProduct, color} = req.body
     const data = await billService.addCart(dataToken._id, {size, quantity, idProduct, color});
     require('../injectMethod')(data, res.statusCode, res)
-  }
+  },
 };
 
 module.exports = billController;

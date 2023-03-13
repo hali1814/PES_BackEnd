@@ -98,6 +98,19 @@ const billService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
   },
+  delete: async function (customer) {
+    
+    try {
+      const result = await bill.updateOne({customer: ObjectId(customer)}, { $set : {
+        listCart: []
+      }});
+      console.log(result)
+      return require("../standardAPI").jsonSuccessCallApi({message: "Delete all products from cart successfully !!"});
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+    
+  }
 };
 
 module.exports = billService;

@@ -1,4 +1,5 @@
 var userModel = require("../../utils/models/user");
+var voucherModel = require("../../utils/models/voucher");
 const jsonFailureCallApi = require("../standardAPI").jsonFailureCallApi;
 
 const loginService = {
@@ -106,6 +107,14 @@ const loginService = {
       return jsonFailureCallApi(err);
     }
   },
+  getVoucherById: async function (_id) {
+    try {
+      const instance = await voucherModel.findOne({_id});
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  }
 };
 
 module.exports = loginService;
