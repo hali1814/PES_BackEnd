@@ -49,7 +49,6 @@ const billService = {
       if (instance == null) {
         const createCard = await billService.createCart(customer);
       }
-      console.log(json);
       //checking product has already exists. increasing 1 if it is exists
       const checkExist = await bill.updateOne(
         { customer: ObjectId(customer) },
@@ -110,7 +109,49 @@ const billService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
     
-  }
+  },
+  deleteProduct: async function (customer, idProduct, size, color) {
+    
+    try {
+      const deleted = await bill.updateOne(
+        { customer: ObjectId(customer) },
+        { $pull: { listCart: { idProduct: ObjectId(idProduct), size, color } } },
+
+      );
+      console.log(deleted)
+      return require("../standardAPI").jsonSuccessCallApi({message: "Delete product from cart successfully !!"});
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+    
+  },
+  declineProduct: async function (customer, idProduct, size, color) {
+    
+    try {
+      //--1 quantity 
+      const checkExist = await bill.updateOne(
+        { customer: ObjectId(customer) },
+        { $inc: { "listCart.$[listCart].quantity": -1 } },
+        {
+          arrayFilters: [
+            {
+              "listCart.idProduct": ObjectId(idProduct),
+              "listCart.size": size,
+              "listCart.color": color,
+            },
+          ],
+        }
+      );
+      const deleteQuantity0 = await bill.updateOne(
+        { customer: ObjectId(customer) },
+        { $pull: { listCart: { quantity: 0 } } },
+      );
+      return require("../standardAPI").jsonSuccessCallApi({message: "decline product successfully !!"});
+    } catch (err) {
+      return jsonFailureCallApi(err.toString());
+    }
+    
+  },
 };
 
 module.exports = billService;

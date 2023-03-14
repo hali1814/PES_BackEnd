@@ -1,7 +1,7 @@
 var userModel = require("../../utils/models/user");
 var voucherModel = require("../../utils/models/voucher");
 const jsonFailureCallApi = require("../standardAPI").jsonFailureCallApi;
-
+const { ObjectId } = require('mongodb')
 const loginService = {
   loginService: async function (userName) {
     try {
@@ -114,7 +114,93 @@ const loginService = {
     } catch (err) {
       return jsonFailureCallApi(err);
     }
-  }
+  },
+  addVoucher: async function (idVoucher, quantity, _id) {
+    try {
+      const instanceVoucher = await voucherModel.findOne({_id : idVoucher});
+      if (!instanceVoucher) {
+        instanceVoucher = {
+          status: 'success',
+          data: {
+            message: 'Voucher is not exist !!'
+          }
+        }
+        return require("../standardAPI").jsonSuccessCallApi(data);
+      }
+      //add voucher 
+      const checkExist = await userModel.updateOne(
+        { _id: ObjectId(_id) },
+        { $inc: { "vouchers.$[vouchers].quantity": quantity } },
+        {
+          arrayFilters: [
+            {
+              "vouchers.idVoucher": ObjectId(idVoucher),
+            },
+          ],
+        }
+      );
+      //add 1 object to voucher.
+      if (!checkExist.modifiedCount) {
+        const addVoucher = await userModel.updateOne(
+          { _id: ObjectId(_id) },
+          {
+            $push: {
+              vouchers: {
+                date: new Date(),
+                idVoucher: ObjectId(idVoucher),
+                quantity
+              },
+            },
+          }
+        );
+      }
+      return require("../standardAPI").jsonSuccessCallApi({message: "Adding voucher successfully !!"});
+    } catch (err) {
+      return jsonFailureCallApi(err.toString());
+    }
+  },
+  deleteVoucher: async function (idVoucher, _id) {
+    try {
+      const instanceVoucher = await voucherModel.findOne({_id : idVoucher});
+      if (!instanceVoucher) {
+        instanceVoucher = {
+          status: 'success',
+          data: {
+            message: 'Voucher is not exist !!'
+          }
+        }
+        return require("../standardAPI").jsonSuccessCallApi(data);
+      }
+      //add voucher 
+      const checkExist = await userModel.updateOne(
+        { _id: ObjectId(_id) },
+        { $inc: { "vouchers.$[vouchers].quantity": -1 } },
+        {
+          arrayFilters: [
+            {
+              "vouchers.idVoucher": ObjectId(idVoucher),
+            },
+          ],
+        }
+      );
+
+
+      const deleteQuantity0 = await userModel.updateOne(
+        { _id: ObjectId(_id) },
+        { $pull: { vouchers: { quantity: 0 } } },
+        {
+          arrayFilters: [
+            {
+              "vouchers.idVoucher": ObjectId(idVoucher),
+            },
+          ],
+        }
+      );
+      return require("../standardAPI").jsonSuccessCallApi({message: "Delete voucher successfully !!"});
+    } catch (err) {
+      return jsonFailureCallApi(err.toString());
+    }
+  },
 };
 
 module.exports = loginService;

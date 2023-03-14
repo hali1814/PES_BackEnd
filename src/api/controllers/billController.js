@@ -23,6 +23,19 @@ const billController = {
     const data = await billService.addCart(dataToken._id, {size, quantity, idProduct, color});
     require('../injectMethod')(data, res.statusCode, res)
   },
+  //POST /api/cart/delete/product
+  deleteProduct: async (req, res, next) => {
+    const dataToken = res.locals.haohoa
+    const {idProduct , size, color} = req.body
+    const data = await billService.deleteProduct(dataToken._id, idProduct, size, color)
+    require('../injectMethod')(data, res.statusCode, res)
+  },
+  declineProduct: async (req, res, next) => {
+    const dataToken = res.locals.haohoa
+    const {idProduct , size, color} = req.body
+    const data = await billService.declineProduct(dataToken._id, idProduct, size, color)
+    require('../injectMethod')(data, res.statusCode, res)
+  },
 };
 
 module.exports = billController;

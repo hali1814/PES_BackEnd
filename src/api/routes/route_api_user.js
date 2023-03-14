@@ -14,13 +14,16 @@ router.get('/profiles',require('../middlewares/authorization') ,loginController.
 //GET login 
 router.get('/vouchers',require('../middlewares/authorization') ,loginController.getVouchers);
 
+//GET login 
+router.post('/voucher/add',require('../middlewares/authorization') ,loginController.addVoucher);
+
 //GET logout 
 router.get('/logout',require('../middlewares/authorization') ,loginController.logout);
 
 
 
 //GET /change_password
-router.post('/change_password',require('../middlewares/authorization') ,loginController.changePassword);
+router.post('/change_password',require('../middlewares/authorization') ,loginController.addVoucher);
 
 //GET /update/profiles
 router.post('/update/profiles',require('../middlewares/authorization') ,loginController.updateProfile);

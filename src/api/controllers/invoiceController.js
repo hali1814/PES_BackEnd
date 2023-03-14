@@ -126,6 +126,7 @@ const invoiceController = {
     if (voucher_shipping) {
       voucher_shipping = (await loginService.getVoucherById(voucher_shipping))
         .data;
+      await loginService.deleteVoucher(voucher_shipping._id, dataToken._id)
       if (shipping_price >= voucher_shipping.min) {
         discount_shipping = shipping_price / 2;
 
@@ -136,6 +137,7 @@ const invoiceController = {
     //calculator for voucher pes
     if (voucher_pes) {
       voucher_pes = (await loginService.getVoucherById(voucher_pes)).data;
+      await loginService.deleteVoucher(voucher_pes._id, dataToken._id)
       if (amountBill >= voucher_pes.min) {
         discount = voucher_pes.value;
       }
