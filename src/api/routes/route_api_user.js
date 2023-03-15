@@ -21,9 +21,8 @@ router.post('/voucher/add',require('../middlewares/authorization') ,loginControl
 router.get('/logout',require('../middlewares/authorization') ,loginController.logout);
 
 
-
 //GET /change_password
-router.post('/change_password',require('../middlewares/authorization') ,loginController.addVoucher);
+router.post('/change_password',require('../middlewares/authorization') ,loginController.changePassword);
 
 //GET /update/profiles
 router.post('/update/profiles',require('../middlewares/authorization') ,loginController.updateProfile);
