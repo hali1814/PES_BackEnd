@@ -201,6 +201,14 @@ const loginService = {
       return jsonFailureCallApi(err.toString());
     }
   },
+  getAllVoucher: async function (userName) {
+    try {
+      const instance = await voucherModel.find()
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  },
 };
 
 module.exports = loginService;

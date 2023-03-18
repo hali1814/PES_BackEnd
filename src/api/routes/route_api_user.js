@@ -31,6 +31,10 @@ router.post('/update/profiles',require('../middlewares/authorization') ,loginCon
 //POST /register
 router.post('/register' ,loginController.register);
 
+
+//GET login 
+router.get('/vouchers/all',require('../middlewares/authorization') ,loginController.getAllVoucher);
+
 // /* GET register page. */
 // router.get('/register', function(req, res, next) {
 //   res.render('register', {layout: false});

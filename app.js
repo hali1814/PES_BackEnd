@@ -30,8 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 connectDB()
 
 // router ///////////////////////////////
-adminRouter(app);
+
 app.use('/api', apiRouter)
+app.use('/', require('./src/admin/routes/index'))
 // apiRouter(app)
 
 //////////////////////////////////////////

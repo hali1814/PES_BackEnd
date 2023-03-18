@@ -149,6 +149,10 @@ const loginController = {
     );
     require('../injectMethod')(data, res.statusCode, res)
   },
+  getAllVoucher: async (req, res, next) => {
+    const data = await loginService.getAllVoucher();
+    require("../injectMethod")(data, res.statusCode, res);
+  },
 };
 
 module.exports = loginController;
