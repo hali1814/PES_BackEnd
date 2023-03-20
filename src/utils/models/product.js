@@ -10,7 +10,7 @@ const product = new Schema({
     stock: Array,
     sale: Number,
     sold: String, 
-    status: String,
+    status: Number,
     description: String,
     date: Date,
     createdAt: { type: Date, default: Date.now },

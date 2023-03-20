@@ -8,7 +8,7 @@ router.post("/game/login", gameController.loginGame);
 
 //GET /api/game/login
 router.get(
-  "/game/asset/:asset",
+  "/game/asset",
   require("../middlewares/authorization"),
   gameController.getAsset
 );

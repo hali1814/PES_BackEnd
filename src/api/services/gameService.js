@@ -62,7 +62,7 @@ const gameService = {
     try {
       const updateGold = await characterModel.findOne(
         { user: ObjectId(_id) },
-      ).select(data);
+      ).select('gold stamina name');
       return require("../standardAPI").jsonSuccessCallApi(updateGold);
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err);

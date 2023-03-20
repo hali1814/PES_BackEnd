@@ -148,7 +148,25 @@ const billService = {
       );
       return require("../standardAPI").jsonSuccessCallApi({message: "decline product successfully !!"});
     } catch (err) {
-      return jsonFailureCallApi(err.toString());
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+    
+  },
+  countCart: async function (_id) {
+    
+    try {
+      const quantityCart =  await bill.aggregate([
+        { $match: {customer: ObjectId(_id)}},
+        {
+          $project: {
+            arrayLength: { $size: "$listCart" }
+          }
+        }
+      ])
+      return require("../standardAPI").jsonSuccessCallApi({quantityCart : quantityCart[0]?.arrayLength || 0});
+    } catch (err) {
+      console.log(err.toString())
+      return require("../standardAPI").jsonFailureCallApi(err.toString);
     }
     
   },

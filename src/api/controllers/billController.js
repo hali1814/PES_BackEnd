@@ -36,6 +36,11 @@ const billController = {
     const data = await billService.declineProduct(dataToken._id, idProduct, size, color)
     require('../injectMethod')(data, res.statusCode, res)
   },
+  countCart: async (req, res, next) => {
+    const dataToken = res.locals.haohoa
+    const data = await billService.countCart(dataToken._id)
+    require('../injectMethod')(data, res.statusCode, res)
+  },
 };
 
 module.exports = billController;

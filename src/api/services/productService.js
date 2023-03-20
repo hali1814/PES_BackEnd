@@ -1,15 +1,41 @@
 var productModel = require('../../utils/models/product')
 /////////////////
 const storeService = require('../services/storeService')
+const genreModel = require('../../utils/models/genre')
+const cartModel = require('../../utils/models/bill')
+
+const { ObjectId } = require('mongodb')
 
 
 
 
 ///////////
 const productService = {
-    getALl: async function() {
+    getALl: async function(_id) {
         try {
-            const instance = await productModel.find({ status: '0' })
+            const instance = await productModel.aggregate([
+                {$match: {status: 0}},
+                {$lookup: {
+                    from: 'categories',
+                    localField: 'type',
+                    foreignField: '_id',
+                    as: 'listGenre'
+                }},
+                {$unwind: '$listGenre'},
+                {$project: {
+                    _id: 1,
+                    owner: '$owner',
+                    type: '$type',
+                    name: '$name',
+                    images: '$images',
+                    stock: '$stock',
+                    sale: '$sale',
+                    sold: '$sold',
+                    description: '$description',
+                    date: '$date',
+                    genre: '$listGenre.label'
+                }}
+            ])
             return require('../standardAPI').jsonSuccessCallApi(instance)
         }catch(err) {
             return require('../standardAPI').jsonFailureCallApi(err)
@@ -31,14 +57,22 @@ const productService = {
             return require('../standardAPI').jsonFailureCallApi(err)
         }
     },
-    getProductById: async function(idProduct) {
+    getProductById: async function(idProduct, _id) {
         try {
             const instanceProduct = await productModel.findOne({ _id: idProduct})
             const instanceStore = await storeService.getStore(instanceProduct.owner)
+            const instanceType = await genreModel.findOne({_id : instanceProduct.type})
+            const quantityCart =  await cartModel.aggregate([
+                { $match: {customer: ObjectId(_id)}},
+                {
+                  $project: {
+                    arrayLength: { $size: "$listCart" }
+                  }
+                }
+              ])
             instanceProduct.toObject()
-            console.log(instanceStore)
             const shop = {nameShop: instanceStore.data.nameShop, avatar: instanceStore.data.avatar, idShop: instanceStore.data._id}
-            const data = {...instanceProduct._doc, shop}
+            const data = {...instanceProduct._doc, shop, genre: instanceType.label, quantityCart: quantityCart[0]?.arrayLength || 0}
             return require('../standardAPI').jsonSuccessCallApi(data);
         }catch(err) {
             return require('../standardAPI').jsonFailureCallApi(err)

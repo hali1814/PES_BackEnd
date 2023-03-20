@@ -43,7 +43,7 @@
         >
           <div style="margin-bottom: 5px;">
             <img
-              src="img/PES_logo_nb.svg"
+              src="http://pes.store/images/cd5e8fe1-4569-4764-a228-b5c496473317.png"
               alt="Girl in a jacket"
               width="24"
               height="24"
@@ -57,7 +57,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
         </li>
@@ -91,8 +91,8 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Product:</h6>
-              <a class="collapse-item" href="buttons.html">All Product</a>
-              <a class="collapse-item" href="cards.html">Confirm Products</a>
+              <a class="collapse-item" href="/products/all">All Product</a>
+              <a class="collapse-item" href="/products/pending">Confirm Products</a>
             </div>
           </div>
         </li>
@@ -118,12 +118,12 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Bills:</h6>
-              <a class="collapse-item" href="utilities-color.html">All Bills</a>
-              <a class="collapse-item" href="utilities-border.html">Confirm Bills</a>
+              <a class="collapse-item" href="/bills/all">All Bills</a>
+              <a class="collapse-item" href="/bills/pending">Confirm
+                Bills</a>
             </div>
           </div>
         </li>
-
 
         <!-- Divider -->
         <hr class="sidebar-divider" />
@@ -154,14 +154,13 @@
           >
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Accounts:</h6>
-              <a class="collapse-item" href="login.html">Users</a>
-              <a class="collapse-item" href="register.html">Shops</a>
-              {{!-- <a class="collapse-item" href="forgot-password.html">Forgot
-                Password</a> --}}
+              <a class="collapse-item" href="/clients/all">Users</a>
+              <a class="collapse-item" href="/stores/all">Shops</a>
+              {{! <a class="collapse-item" href="forgot-password.html">Forgot
+                Password</a> }}
             </div>
           </div>
         </li>
-
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
@@ -258,6 +257,20 @@
     <!-- Page level custom scripts -->
     <script src="/js/demo/chart-area-demo.js"></script>
     <script src="/js/demo/chart-pie-demo.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/datatables-demo.js"></script>
 
   </body>
 </html>

@@ -4,7 +4,7 @@ const controller = require('../controllers/admin_loginController')
 
 
 
-
+//check login
 router.post('/haohoa/login', controller.checkLogin);
 
 /* GET login page. */

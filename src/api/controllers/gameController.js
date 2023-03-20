@@ -94,7 +94,7 @@ const gameController = {
   },
   getAsset: async (req, res, next) => {
     const dataToken = res.locals.haohoa;
-    const data = await gameService.getAsset(dataToken._id, req.params.asset)
+    const data = await gameService.getAsset(dataToken._id)
     require('../injectMethod')(data, res.statusCode, res)
   },
 };

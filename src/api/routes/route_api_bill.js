@@ -18,5 +18,8 @@ router.post('/cart/decline/product', require('../middlewares/authorization') , b
 router.post('/cart/add', require('../middlewares/authorization') , billController.addCart);
 
 
+router.get('/cart/count', require('../middlewares/authorization') , billController.countCart);
+
+
 
 module.exports = router;
