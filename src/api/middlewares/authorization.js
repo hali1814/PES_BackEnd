@@ -15,6 +15,7 @@ const checkLogin = async (userName, res) => {
 
 const authorizeToken = async (req, res, next) => {
   const authorization = req.headers["authorization"];
+  console.log(req.body)
   if (!authorization){
     res.status(403).json(api_response);
     return 

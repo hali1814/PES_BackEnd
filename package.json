@@ -12,6 +12,7 @@
     "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "express-session": "^1.17.3",
+    "handlebars-helpers": "^0.10.0",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "ioredis": "^5.3.1",

@@ -11,7 +11,7 @@ const { ObjectId } = require('mongodb')
 
 ///////////
 const productService = {
-    getALl: async function(_id) {
+    getALl: async function() {
         try {
             const instance = await productModel.aggregate([
                 {$match: {status: 0}},
@@ -33,6 +33,7 @@ const productService = {
                     sold: '$sold',
                     description: '$description',
                     date: '$date',
+                    status: '$status',
                     genre: '$listGenre.label'
                 }}
             ])

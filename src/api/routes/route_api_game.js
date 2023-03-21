@@ -26,4 +26,5 @@ router.post(
   gameController.updateGold
 );
 
+
 module.exports = router;

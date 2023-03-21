@@ -11,6 +11,6 @@ router.get('/products/all', require('../middlewares/authorization'), admin_produ
 router.get('/products/pending', require('../middlewares/authorization'), admin_productController.getAllPendingProducts)
 
 
-router.get('/product/detail', require('../middlewares/authorization'), admin_productController.pageProductDetail)
+router.get('/product/details/:id', require('../middlewares/authorization'), admin_productController.pageProductDetail)
 
 module.exports = router;
