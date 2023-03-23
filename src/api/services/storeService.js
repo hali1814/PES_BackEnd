@@ -6,7 +6,7 @@ const storeService = {
     try {
       const instance = await storeModel.findOne(
         { owner },
-        "nameShop avatar _id"
+        "nameShop avatar _id address email owner"
       );
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {

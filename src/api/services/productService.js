@@ -11,10 +11,10 @@ const { ObjectId } = require('mongodb')
 
 ///////////
 const productService = {
-    getALl: async function() {
+    getALl: async function(status) {
         try {
             const instance = await productModel.aggregate([
-                {$match: {status: 0}},
+                {$match: {status: status}},
                 {$lookup: {
                     from: 'categories',
                     localField: 'type',
@@ -72,7 +72,7 @@ const productService = {
                 }
               ])
             instanceProduct.toObject()
-            const shop = {nameShop: instanceStore.data.nameShop, avatar: instanceStore.data.avatar, idShop: instanceStore.data._id}
+            const shop = {nameShop: instanceStore.data.nameShop, avatar: instanceStore.data.avatar, idShop: instanceStore.data._id, email: instanceStore.data.email, address: instanceStore.data.address}
             const data = {...instanceProduct._doc, shop, genre: instanceType.label, quantityCart: quantityCart[0]?.arrayLength || 0}
             return require('../standardAPI').jsonSuccessCallApi(data);
         }catch(err) {

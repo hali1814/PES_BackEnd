@@ -30,9 +30,32 @@ hbs.registerHelper('upperCase', function(str) {
   return str.toUpperCase();
 });
 
+hbs.registerHelper('totalBill', function(price, quantity, sale) {
+  const total = price * (1 - sale / 100) * quantity
+  return total.toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });;
+});
+
+hbs.registerHelper('renderStatusBill', function(status) {
+  let html = ''
+  switch(status) {
+    case 0: html = '<label class="statusBar badge-secondary">To Pay</label>'; break;
+    case 1: html = '<label class="statusBar badge-danger">To Ship</label>'; break;
+    case 2: html = '<label class="statusBar badge-primary">To receive</label>'; break;
+    case 3: html = '<label class="statusBar badge-success">Completed</label>'; break;
+    case 4: html = '<label class="statusBar badge-danger">Cancelled</label>'; break;
+  }
+  return html;
+});
+
+hbs.registerHelper('length', function(arr) {
+  return arr.length;
+});
+
 hbs.registerHelper('priceSale', function(price, sale) {
   const total = price * (1 - sale / 100);
-  console.log(price, sale, total)
   return total.toLocaleString("vi-VN", {
     style: "currency",
     currency: "VND",

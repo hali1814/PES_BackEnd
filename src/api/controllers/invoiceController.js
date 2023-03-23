@@ -13,9 +13,10 @@ const invoiceController = {
     const { status } = req.params;
     const data = await invoiceService.getInvoiceByStatus(Number(status), _id);
     data.data.forEach((element) => {
-      element.listProduct[0].stock = element.listProduct[0].stock.filter(
+      element.productDetails[0].stock = element.productDetails[0].stock.filter(
         (stock) => stock.size == element.size && stock.color == element.color
       );
+      element.productDetails = element.productDetails[0]
     });
     require("../injectMethod")(data, res.statusCode, res);
   },
@@ -199,6 +200,18 @@ const invoiceController = {
       res.json(require("../standardAPI").jsonFailure({message: 'your cart is empty ??'}, res.statusCode));
     }
 
+  },
+  getBillDetails: async (req, res, next) => {
+    const { id } = req.params;
+    const data = await invoiceService.getBillDetails(id);
+    data.data.forEach((element) => {
+      element.productDetails[0].stock = element.productDetails[0].stock.filter(
+        (stock) => stock.size == element.size && stock.color == element.color
+      );
+      element.productDetails = element.productDetails[0]
+    });
+    data.data = data.data[0]
+    require("../injectMethod")(data, res.statusCode, res);
   },
 };
 

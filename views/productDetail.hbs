@@ -231,7 +231,7 @@
                   <a href="/product/details/{{this._id}}" class="nav-link mb-1">
                     {{upperCase this.name}}
                   </a>
-                  <strong style="margin-left: 15px;" class="text-dark"> $38.90</strong>
+                  <strong style="margin-left: 15px;" class="text-dark">{{priceSale this.stock.[0].price 0}}</strong>
                 </div>
               </div>
               {{/each}}

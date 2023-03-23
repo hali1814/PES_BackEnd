@@ -1455,6 +1455,15 @@ p {
     font-size:24px !important;
 }
 
+.statusBar {
+    border-radius: 0;
+    font-size: 12px;
+    line-height: 1;
+    padding: .375rem .5625rem;
+    font-weight: normal;
+}
+ 
+
 .small-ratings i{
   color:#cecece;   
 }
@@ -1474,3 +1483,5 @@ p {
   .icon-hover:hover i {
     color: #3b71ca !important;
   }
+
+  @import url('https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap');body{font-family: 'Maven Pro', sans-serif;background-color: #f12369}hr{color: #0000004f;margin-top: 5px;margin-bottom: 5px}.add td{color: #c5c4c4;text-transform: uppercase;font-size: 12px}.content{font-size: 14px}

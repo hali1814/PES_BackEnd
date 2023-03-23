@@ -8,7 +8,7 @@ const productController = {
   //GET /api/products/all
   getAll: async (req, res, next) => {
 
-    const data = await productSerVice.getALl();
+    const data = await productSerVice.getALl(0);
 
     require('../injectMethod')(data, res.statusCode, res)
   },

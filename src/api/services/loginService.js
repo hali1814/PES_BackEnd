@@ -11,6 +11,14 @@ const loginService = {
       return jsonFailureCallApi(err);
     }
   },
+  getCustomer: async function (id) {
+    try {
+      const instance = await userModel.findOne({ _id: ObjectId(id), role: "customer" }).select('userName nickName address');
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  },
   changePassWord: async (password, newPassword, userName) => {
     try {
       const instance = await userModel.findOneAndUpdate(

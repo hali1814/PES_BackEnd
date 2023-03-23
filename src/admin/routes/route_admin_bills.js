@@ -10,4 +10,9 @@ router.get('/bills/all', require('../middlewares/authorization'), billController
 
 router.get('/bills/pending', require('../middlewares/authorization'), billController.getAllPendingBills)
 
+
+router.get('/bill/details/:id', require('../middlewares/authorization'), billController.pageBillDetails)
+
+
+
 module.exports = router;

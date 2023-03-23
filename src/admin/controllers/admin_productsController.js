@@ -1,5 +1,6 @@
 const productService = require('../../api/services/productService')
-const storeService = require('../../api/services/storeService')
+const storeService = require('../../api/services/storeService');
+const store = require('../../utils/models/store');
 
 /////////////////
 
@@ -8,12 +9,15 @@ const storeService = require('../../api/services/storeService')
 const admin_productController = {
 
   getAllProducts: async function (req, res, next) {
-    const data = await productService.getALl()
+    const data = await productService.getALl(0)
     res.render("products", {products: data.data});
   },
   getAllPendingProducts: async function (req, res, next) {
-    
-    res.render("confirmProducts");
+    const data = await productService.getALl(1)
+    data.data.forEach(e => {
+      e.date = require('../../validations/formatDate')(e.date)
+    })
+    res.render("confirmProducts", {products: data.data});
   },
   pageProductDetail: async function (req, res, next) {
     const data = await productService.getProductById(req.params.id)
@@ -29,7 +33,12 @@ const admin_productController = {
       ...getStore[0],
     };
     dataStore.products = getStore.map((element) => element.products);
-    dataStore.products = [dataStore.products[0], dataStore.products[1], dataStore.products[2], dataStore.products[3]]
+    const checkQuantityProduct = dataStore.products.length >= 4 ? 4 : dataStore.products.length
+    const tmp = []
+    for (let i = 0; i < checkQuantityProduct; i++) 
+      tmp.push(dataStore.products[i])
+    
+      dataStore.products = tmp
 
 
     res.render("productDetail", {product, store: dataStore});

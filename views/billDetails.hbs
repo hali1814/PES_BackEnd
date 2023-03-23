@@ -1,0 +1,192 @@
+<div class="container mt-5 mb-3">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="d-flex flex-row p-2 justify-content-between">
+          <div class="d-flex flex-row">
+            <img
+              src="http://pes.store/images/fa94a4ca-0771-449c-b7c4-bbf7efcaef50.png"
+              width="70"
+            />
+            <div style="margin-left: 10px;" class="d-flex flex-column">
+              <span class="font-weight-bold">PES Invoice</span>
+              <small>No. {{invoice._id}}</small>
+              <small>{{invoice.date}}</small>
+            </div>
+          </div>
+          <div style="margin-left: 10px;" class="d-flex flex-column">
+            {{{renderStatusBill invoice.status}}}
+          </div>
+
+        </div>
+        <hr />
+        <div class="table-responsive p-2">
+          <table class="table table-borderless">
+            <tbody>
+              <tr class="add">
+                <td>To</td>
+                <td>From</td>
+              </tr>
+              <tr class="content">
+                <td class="font-weight-bold">{{customer.nickName}}
+                  <br />Phone: {{customer.userName}}
+                  <br />Address: {{customer.address}}</td>
+                <td class="font-weight-bold">SHOP {{store.nameShop}}
+                  <br />
+                   Phone: {{store.owner}}
+                  
+                  <br />Address: {{store.address}}
+                 </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr />
+        <div class="products p-2">
+          <table class="table table-borderless">
+            <tbody>
+              <tr class="add">
+                <td>Product</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td class="text-center">Total</td>
+              </tr>
+              <tr class="content">
+                <td>{{upperCase invoice.productDetails.name}}</td>
+                <td>{{invoice.quantity}}</td>
+                <td><span
+                    class="h5"
+                    style="font-size: small; text-decoration: line-through; color: rgb(198, 198, 198);"
+                  >{{priceSale
+                      invoice.productDetails.stock.price
+                      0
+                    }}</span> <span
+                    class="h5"
+                    style="font-size: small; color: red;"
+                  >{{priceSale
+                      invoice.productDetails.stock.price
+                      invoice.productDetails.sale
+                    }}</span></td>
+                <td class="text-center">{{totalBill invoice.productDetails.stock.price invoice.quantity invoice.productDetails.sale}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr />
+        <div class="row d-flex justify-content-end">
+
+          <div class="col-md-5">
+
+            <table class="table table-borderless">
+
+              <tbody class="totals">
+
+                <tr>
+                  <td>
+                    <div class="text-left">
+
+                      <span class="text-muted">Subtotal</span>
+
+                    </div>
+                  </td>
+                  <td>
+                    <div class="text-right">
+                      <span>{{totalBill invoice.productDetails.stock.price invoice.quantity invoice.productDetails.sale}}</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="text-left">
+
+                      <span class="text-muted">Shipping Fee</span>
+
+                    </div>
+                  </td>
+                  <td>
+                    <div class="text-right">
+                      <span>{{priceSale invoice.shipping_price 0}}</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="text-left">
+
+                      <span class="text-muted">Discount Shipping</span>
+
+                    </div>
+                  </td>
+                  <td>
+                    <div class="text-right">
+                      <span>- {{priceSale invoice.discount_shipping 0}}</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="text-left">
+
+                      <span class="text-muted">Discount</span>
+
+                    </div>
+                  </td>
+                  <td>
+                    <div class="text-right">
+                      <span>- {{priceSale invoice.discount 0}}</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="border-top border-bottom">
+                  <td>
+                    <div class="text-left">
+
+                      <span class="font-weight-bold">Subtotal</span>
+
+                    </div>
+                  </td>
+                  <td>
+                    <div class="text-right">
+                      <span class="font-weight-bold">{{priceSale invoice.amount 0}}</span>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+        <hr />
+        <div class="address p-2">
+          <table class="table table-borderless">
+            <tbody>
+              <tr class="add">
+                <td>Bank Details</td>
+              </tr>
+              <tr class="content">
+                <td>
+                  Bank Name : ADS BANK
+                  <br />
+                  Swift Code : ADS1234Q
+                  <br />
+                  Account Holder : Jelly Pepper
+                  <br />
+                  Account Number : 5454542WQR
+                  <br />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,189 @@
+
+
+<section class="bg-light border-top py-4">
+  <div class="container">
+    <div class="row gx-4">
+      <div class="col-lg-8 mb-4">
+        <div class="border rounded-2 px-3 py-2 bg-white">
+          <!-- Pills navs -->
+          <!-- Pills navs -->
+
+          <!-- Pills content -->
+          <div class="tab-content" id="ex1-content">
+            <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+              <p>
+              <div class="d-flex mb-3">
+                <a href="" class="me-3">
+                  <img src='{{store.avatar}}' style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                </a>
+                <div class="info">
+                  <span href="#" class="nav-link mb-1">
+                    {{store.description}}
+                  </span>
+                </div>
+              </div>
+              </p>
+              <div class="row mb-2">
+                <div class="col-12 col-md-6">
+                  <ul class="list-unstyled mb-0">
+                    <li><i class="fas fa-check text-success me-2"></i>Some great
+                      feature name here</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Lorem
+                      ipsum dolor sit amet, consectetur</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Duis aute
+                      irure dolor in reprehenderit</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Optical
+                      heart sensor</li>
+                  </ul>
+                </div>
+                <div class="col-12 col-md-6 mb-0">
+                  <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Easy fast
+                      and ver good</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Some great
+                      feature name here</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Modern
+                      style and design</li>
+                  </ul>
+                </div>
+              </div>
+              <table class="table border mt-3 mb-2">
+                <tr>
+                  <th class="py-2">ID Shop</th>
+                  <td class="py-2">{{store._id}}</td>
+                </tr>
+                <tr>
+                  <th class="py-2">Shop:</th>
+                  <td class="py-2">{{store.nameShop}}</td>
+                </tr>
+                <tr>
+                  <th class="py-2">Address:</th>
+                  <td class="py-2">{{store.address}}</td>
+                </tr>
+                <tr>
+                  <th class="py-2">Email:</th>
+                  <td class="py-2">{{store.email}}</td>
+                </tr>
+                <tr>
+                  <th class="py-2">Phone:</th>
+                  <td class="py-2">{{store.owner}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <!-- Pills content -->
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="px-0 border rounded-2 shadow-0" >
+          <div class="overflow-auto" style="height: 505px;">
+            <div class="card-body">
+              <h5 class="card-title">Similar items</h5>
+              {{#each store.products}}
+              <div class="d-flex mb-3">
+                <a href="#" class="me-3">
+                  <img src="{{this.images.[0]}}"
+                    style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                </a>
+                <div class="info">
+                  <a href="/product/details/{{this._id}}" class="nav-link mb-1">
+                    {{this.name}}
+                  </a>
+                  <strong style="margin-left: 15px;" class="text-dark">{{this.sold}}</strong>
+                  <br>
+                  <strong style="margin-left: 15px;" class="text-dark">{{priceSale this.stock.[0].price 0}}</strong>
+                </div>
+              </div>
+              {{/each}}
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold" style="color: #5865F2;">Bills PESHOP</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID NO.</th>
+                            <th>Vouchers</th>
+                            <th>Date</th>
+                            <th>Total Bill</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID NO.</th>
+                            <th>Vouchers</th>
+                            <th>Date</th>
+                            <th>Total Bill</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {{#each listBills}}
+
+                        <tr>
+
+                            {{! name product }}
+                            <th scope="row">
+                                <div class="media align-items-center">
+                                    <a href="#" class="avatar rounded-circle mr-3">
+                                        <img alt="Image placeholder"
+                                            src="http://pes.store/images/fa94a4ca-0771-449c-b7c4-bbf7efcaef50.png" />
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="mb-0 text-sm">{{this._id}}</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td>
+                                {{length this.vouchers }}
+                            </td>
+                            <td>
+                                {{this.date }}
+
+                            </td>
+                            <td>
+                                {{priceSale this.amount 0}}
+                            </td>
+                            <td>
+                                {{{renderStatusBill this.status}}}
+                            </td>
+
+                            <td class="text-right">
+                                <div class="dropdown">
+                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="/bill/details/{{this._id}}">Detail</a>
+                                        <a class="dropdown-item" style="color: red;" href="#">Block</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </a>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- Begin Page Content -->
+
+</section>
+
+

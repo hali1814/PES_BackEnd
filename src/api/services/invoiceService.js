@@ -10,7 +10,7 @@ const invoiceService = {
             from: 'products',
             localField: 'idProduct',
             foreignField: '_id',
-            as: 'listProduct'
+            as: 'productDetails'
         }}
       ]);
       return require("../standardAPI").jsonSuccessCallApi(instance);
@@ -25,7 +25,38 @@ const invoiceService = {
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
-  }
+  },
+  getALLInvoice: async function () {
+    try {
+      const instance = await invoiceModel.aggregate([
+        { $lookup: {
+            from: 'products',
+            localField: 'idProduct',
+            foreignField: '_id',
+            as: 'productDetails'
+        }}
+      ]);
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+  },
+  getBillDetails: async function (id) {
+    try {
+      const instance = await invoiceModel.aggregate([
+        { $match: { _id: ObjectId(id)} },
+        { $lookup: {
+            from: 'products',
+            localField: 'idProduct',
+            foreignField: '_id',
+            as: 'productDetails'
+        }}
+      ]);
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+  },
 };
 
 module.exports = invoiceService;

@@ -31,6 +31,12 @@ const storeController = {
   getProducts: async (req, res, next) => {
     const { idStore, idGenre } = req.params;
     const data = await storeService.getProductsByIdGenre(idStore, idGenre)
+    data.data = data.data.map(e => {
+      let tmp = e.listProduct
+      console.log(tmp)
+      return {...tmp}
+    })
+    console.log(data.data)
     require('../injectMethod')(data, res.statusCode, res)
   },
 };
