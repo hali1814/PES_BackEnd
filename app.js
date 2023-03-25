@@ -4,7 +4,6 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 ///////////////////////////////////////////////////////////////////
-var adminRouter = require("./src/admin/routes/index");
 var apiRouter = require("./src/api/routes/index");
 var connectDB = require("./src/utils/helper/connectDB");
 ///////////////
@@ -18,8 +17,8 @@ const session = require("express-session");
 require("dotenv").config();
 
 //testttt
-var multer = require("multer");
-var upload = multer();
+// var multer = require("multer");
+// var upload = multer();
 
 ////////////////////////////////////////////////////////////
 
@@ -96,8 +95,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(upload.array());
-app.use(express.static("public"));
+// app.use(upload.array());
+// app.use(express.static("public"));
 
 // connect db
 connectDB();

@@ -6,6 +6,7 @@ const path = require("path");
 const upLoadController = {
   //GET /api/upLoadOne
   upLoadOne: async (req, res, next) => {
+    console.log('dfaskjfhkjsahfkjsdhfjksahfdkh')
     if (req.file == null) {
       res.json({
         err: "Server has not received images yet",
