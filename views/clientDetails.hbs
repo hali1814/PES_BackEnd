@@ -1,0 +1,228 @@
+<section class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="card card-style1 border-0">
+                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 mb-4 mb-lg-0">
+                                <img src="{{user.avatar}}" alt="..." height="315px" , width="315px">
+                            </div>
+                            <div class="col-lg-6 px-xl-10">
+                                <div class="d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded border border-secondary">
+                                    <h3 class="h2 mb-0">{{upperCase user.nickName}}</h3>
+                                    <span class="text-primary">{{{renderStatusUser user.status}}}</span>
+                                </div>
+                                <ul class="list-unstyled mb-1-9">
+                                    <li class="mb-2 mb-xl-3 display-28"><span
+                                            class="display-26 text-secondary me-2 font-weight-600">Phone:</span>
+                                        {{user.userName}}</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span
+                                            class="display-26 text-secondary me-2 font-weight-600">Email:</span>
+                                        {{user.email}}</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span
+                                            class="display-26 text-secondary me-2 font-weight-600">Date:</span>
+                                        {{user.yob}}</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span
+                                            class="display-26 text-secondary me-2 font-weight-600">Address:</span>
+                                        {{user.address}}</li>
+                                </ul>
+                                <ul class="social-icon-style1 list-unstyled mb-0 ps-0">
+                                    <li><a href="#!"><i class="ti-twitter-alt"></i></a></li>
+                                    <li><a href="#!"><i class="ti-facebook"></i></a></li>
+                                    <li><a href="#!"><i class="ti-pinterest"></i></a></li>
+                                    <li><a href="#!"><i class="ti-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div>
+                    <span class="section-title text-primary mb-3 mb-sm-4">Vouchers</span>
+                    <!-- Begin Page Content -->
+
+                </div>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold" style="color: #5865F2;"></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush" id="dataTable" width="100%"
+                                cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID NO.</th>
+                                        <th>Quantity</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID NO.</th>
+                                        <th>Quantity</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {{#each vouchers}}
+
+                                    <tr>
+
+                                        {{! name product }}
+                                        <th scope="row">
+                                            <div class="media align-items-center">
+                                                <a href="#" class="avatar rounded-circle mr-3">
+                                                    <img alt="Image placeholder" src="{{this.images}}" />
+                                                </a>
+                                                <div class="media-body">
+                                                    <span class="mb-0 text-sm">{{this.voucherId}}</span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            {{this.quantity}}
+
+                                        </td>
+                                        <td>
+                                            {{this.date}}
+
+                                        </td>
+                                        <td>
+                                            {{this.type}}
+                                        </td>
+
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item"
+                                                        href="/product/details/{{this._id}}">Detail</a>
+                                                    <a class="dropdown-item" style="color: red;" href="#">Block</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </a>
+                                    {{/each}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 mb-4 mb-sm-5">
+
+                        <span class="section-title text-primary mb-3 mb-sm-4">Bills</span>
+                        <!-- Begin Page Content -->
+            
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold" style="color: #5865F2;">Bills PESHOP</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table align-items-center table-flush" id="dataTable" width="100%"
+                                            cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID NO.</th>
+                                                    <th>Vouchers</th>
+                                                    <th>Date</th>
+                                                    <th>Total Bill</th>
+                                                    <th>Status</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>ID NO.</th>
+                                                    <th>Vouchers</th>
+                                                    <th>Date</th>
+                                                    <th>Total Bill</th>
+                                                    <th>Status</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                {{#each bills}}
+
+                                                <tr>
+
+                                                    {{! name product }}
+                                                    <th scope="row">
+                                                        <div class="media align-items-center">
+                                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                                <img alt="Image placeholder"
+                                                                    src="http://pes.store/images/fa94a4ca-0771-449c-b7c4-bbf7efcaef50.png" />
+                                                            </a>
+                                                            <div class="media-body">
+                                                                <span class="mb-0 text-sm">{{this._id}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        {{length this.vouchers }}
+                                                    </td>
+                                                    <td>
+                                                        {{this.date }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{priceSale this.amount 0}}
+                                                    </td>
+                                                    <td>
+                                                        {{{renderStatusBill this.status}}}
+                                                    </td>
+
+                                                    <td class="text-right">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                role="button" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fas fa-ellipsis-v"></i>
+                                                            </a>
+                                                            <div
+                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                <a class="dropdown-item"
+                                                                    href="/bill/details/{{this._id}}">Detail</a>
+                                                                <a class="dropdown-item" style="color: red;"
+                                                                    href="#">Block</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </a>
+                                                {{/each}}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+             
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>

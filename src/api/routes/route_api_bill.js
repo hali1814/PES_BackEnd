@@ -21,5 +21,9 @@ router.post('/cart/add', require('../middlewares/authorization') , billControlle
 router.get('/cart/count', require('../middlewares/authorization') , billController.countCart);
 
 
+router.post('/haohoa', require('../middlewares/authorization') , billController.test);
+
+
+
 
 module.exports = router;

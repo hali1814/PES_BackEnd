@@ -57,6 +57,37 @@ const invoiceService = {
       return require("../standardAPI").jsonFailureCallApi(err.toString());
     }
   },
+  getInvoicesOfCustomer: async function (customer) {
+    try {
+      const instance = await invoiceModel.aggregate([
+        { $match: { customer: ObjectId(customer)} },
+        { $lookup: {
+            from: 'products',
+            localField: 'idProduct',
+            foreignField: '_id',
+            as: 'productDetails'
+        }}
+      ]);
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+  },
+  updateStatusInvoice: async (_id, status) => {
+    try {
+      const instance = await userModel.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            status
+          },
+        }
+      );
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  },
 };
 
 module.exports = invoiceService;

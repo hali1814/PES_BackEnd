@@ -50,6 +50,17 @@ hbs.registerHelper('renderStatusBill', function(status) {
   return html;
 });
 
+hbs.registerHelper('renderStatusUser', function(status) {
+  let html = ''
+  switch(status) {
+    case 0: html = '<span class="badge badge-dot"><i class="bg-success"></i>Active</span>'; break;
+    case 1: html = '<span class="badge badge-dot"><i class="bg-warning"></i>Active</span>'; break;
+    case 2: html = '<span class="badge badge-dot"><i class="bg-warning"></i>Inactive</span>'; break;
+    case 3: html = '<span class="badge badge-dot"><i class="bg-danger"></i>Banned</span>'; break;
+  }
+  return html;
+});
+
 hbs.registerHelper('length', function(arr) {
   return arr.length;
 });

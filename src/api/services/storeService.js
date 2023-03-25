@@ -78,6 +78,33 @@ const storeService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
   },
+  getBills: async (_id) => {
+    try {
+      const instance = await storeModel.aggregate([
+        {$match: {_id: ObjectId(_id)}},
+        {$lookup: {
+          from: 'products',
+          localField: 'owner',
+          foreignField: 'owner',
+          as: 'listProduct'
+        }},
+        {$unwind: '$listProduct'},
+        {$lookup: {
+          from: 'invoices',
+          localField: 'listProduct._id',
+          foreignField: 'idProduct',
+          as: 'listBills'
+        }},
+        {$project: {
+          _id: 0,
+          listBills: '$listBills'
+        }}
+      ])
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+  }
 };
 
 module.exports = storeService;

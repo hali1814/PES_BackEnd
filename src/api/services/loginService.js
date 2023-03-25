@@ -209,7 +209,7 @@ const loginService = {
       return jsonFailureCallApi(err.toString());
     }
   },
-  getAllVoucher: async function (userName) {
+  getAllVoucher: async function () {
     try {
       const instance = await voucherModel.find()
       return require("../standardAPI").jsonSuccessCallApi(instance);

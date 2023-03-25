@@ -11,7 +11,7 @@ const user = new Schema({
     email: String,
     role: String,
     address: String, 
-    status: String,
+    status: Number,
     vouchers: Array,
     card: String,
     createdAt: { type: Date, default: Date.now },

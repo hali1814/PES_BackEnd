@@ -8,7 +8,7 @@ const billController = require('../controllers/admin_billController')
 router.get('/bills/all', require('../middlewares/authorization'), billController.getAllBills)/* GET home page. */
 
 
-router.get('/bills/pending', require('../middlewares/authorization'), billController.getAllPendingBills)
+router.get('/vouchers/pes', require('../middlewares/authorization'), billController.getVouchers)
 
 
 router.get('/bill/details/:id', require('../middlewares/authorization'), billController.pageBillDetails)

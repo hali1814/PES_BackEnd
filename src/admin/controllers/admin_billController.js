@@ -1,6 +1,7 @@
 const invoiceService = require('../../api/services/invoiceService')
 const userService = require('../../api/services/loginService')
-const storeService = require('../../api/services/storeService')
+const storeService = require('../../api/services/storeService');
+
 
 /////////////////
 
@@ -20,9 +21,10 @@ const admin_billController = {
     res.render("bills",  {listBills : data.data});
   },
 
-  getAllPendingBills: async function (req, res, next) {
-    
-    res.render("confirmBills");
+  getVouchers: async function (req, res, next) {
+    const vouchers = await userService.getAllVoucher()
+    console.log(vouchers.data)
+    res.render("vouchers", {vouchers: vouchers.data});
   },
   pageBillDetails: async function (req, res, next) {
     const invoice = await invoiceService.getBillDetails(req.params.id)
@@ -34,6 +36,17 @@ const admin_billController = {
     const customer = await userService.getCustomer(invoice.data[0].customer)
 
     res.render("billDetails", {invoice: invoice.data[0], store: store.data, customer: customer.data});
+  },
+  pageUpdateBills: async function (req, res, next) {
+    const invoice = await invoiceService.getBillDetails(req.params.id)
+    invoice.data[0].date = require('../../validations/formatDate')(invoice.data[0].date)
+    invoice.data[0].productDetails = invoice.data[0].productDetails[0]
+    invoice.data[0].productDetails.stock = invoice.data[0].productDetails.stock[0]
+
+    const store = await storeService.getStore(invoice.data[0].productDetails.owner)
+    const customer = await userService.getCustomer(invoice.data[0].customer)
+
+    res.redirect("/bills/all");
   },
 };
 

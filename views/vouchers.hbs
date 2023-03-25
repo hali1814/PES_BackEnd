@@ -1,0 +1,77 @@
+  <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold" style="color: #5865F2;">Voucher PES</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush" id="dataTable" width="100%"
+                                cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID NO.</th>
+                                        <th>Min</th>
+                                        <th>Point</th>
+                                        <th>Type</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID NO.</th>
+                                        <th>Min</th>
+                                        <th>Point</th>
+                                        <th>Type</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    {{#each vouchers}}
+
+                                    <tr>
+
+                                        {{! name product }}
+                                        <th scope="row">
+                                            <div class="media align-items-center">
+                                                <a href="#" class="avatar rounded-circle mr-3">
+                                                    <img alt="Image placeholder" src="{{this.images}}" />
+                                                </a>
+                                                <div class="media-body">
+                                                    <span class="mb-0 text-sm">{{this._id}}</span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            {{this.min}}
+
+                                        </td>
+                                        <td>
+                                            {{this.point}}
+
+                                        </td>
+                                        <td>
+                                            {{this.type}}
+                                        </td>
+
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item"
+                                                        href="/product/details/{{this._id}}">Detail</a>
+                                                    <a class="dropdown-item" style="color: red;" href="#">Block</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </a>
+                                    {{/each}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>

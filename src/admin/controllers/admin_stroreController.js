@@ -1,5 +1,6 @@
 const admin_storeService = require("../service/admin_storeService");
 const storeService = require("../../api/services/storeService");
+
 /////////////////
 
 //////////////////////
@@ -30,7 +31,18 @@ const admin_storeController = {
           return ok;
         }, {})
       );
-      res.render("shopDetails", {store: data});
+
+
+      //bills of shop 
+      let bills = await storeService.getBills(data._id);
+      bills = bills.data.reduce((previousValue, currentValue) => {
+        previousValue.push(...currentValue.listBills)
+        return previousValue
+      }, [])
+      bills.forEach(e => e.date = require('../../validations/formatDate')(e.date))
+      console.log(bills)
+      data.products.sort((a, b) => Number(b.sold) - Number(a.sold))
+      res.render("shopDetails", {store: data, bills});
     }
   },
 };

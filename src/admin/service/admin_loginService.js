@@ -19,9 +19,19 @@ const admin_loginService = {
     try {
       const instance = await userModel.findOne({
         _id
-      }).select('userName avatar nickName');
+      });
       if (instance) return instance
       else return false
+    } catch (err) {
+      console.log("admin_loginService.checkUser", err.toString());
+      return 'error';
+    }
+  },
+  getUsers: async function () {
+    try {
+      const instance = await userModel.find({role: 'customer'})
+      if (instance) return instance
+      else return null
     } catch (err) {
       console.log("admin_loginService.checkUser", err.toString());
       return 'error';

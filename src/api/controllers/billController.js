@@ -41,6 +41,10 @@ const billController = {
     const data = await billService.countCart(dataToken._id)
     require('../injectMethod')(data, res.statusCode, res)
   },
+  test: async (req, res, next) => {
+    console.log(req.body)
+    res.send(JSON.parse(req.body.haohoa))
+  },
 };
 
 module.exports = billController;

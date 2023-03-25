@@ -157,7 +157,7 @@ const invoiceController = {
           sliptDiscount +
           (shipping_price - discount_shipping),
       };
-      element.vouchers = [voucher_shipping._id, voucher_pes._id];
+      element.vouchers = [voucher_shipping?._id, voucher_pes?._id];
     });
     //
     let listBills = new Array();

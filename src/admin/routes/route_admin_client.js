@@ -6,6 +6,7 @@ const clientController = require('../controllers/admin_clientController')
 
 /* GET home page. */
 router.get('/clients/all', require('../middlewares/authorization'), clientController.getAllClients)/* GET home page. */
+router.get('/client/details/:id', require('../middlewares/authorization'), clientController.pageDetails)/* GET home page. */
 
 
 
