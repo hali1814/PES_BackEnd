@@ -1,0 +1,101 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold" style="color: #5865F2;">Product PESHOP</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Genre</th>
+                            <th>Status</th>
+                            <th>Images</th>
+                            <th>star rate</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Product</th>
+                            <th>Genre</th>
+                            <th>Status</th>
+                            <th>Images</th>
+                            <th>Star rate</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                
+              
+                            <tr>
+
+                                {{! name product }}
+                                <th scope="row">
+                                    <div class="media align-items-center">
+                                        <a href="#" class="avatar rounded-circle mr-3">
+                                            <img alt="Image placeholder"
+                                                src="http://pes.store/images/fa94a4ca-0771-449c-b7c4-bbf7efcaef50.png" />
+                                        </a>
+                                        <div class="media-body">
+                                            <span class="mb-0 text-sm">{{upperCase product.name}}</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td style="display: none;">{{product._id}}</td>
+                                <td>
+                                    {{product.genre}}
+                                </td>
+                                <td>
+                                    {{{renderStatusProduct product.status}}}
+                                </td>
+                                <td>
+                                    <div class="avatar-group">
+                                        {{#each product.images}}
+                                        <a href="#" class="avatar avatar-sm" data-toggle="tooltip"
+                                            data-original-title="Ryan Tompson">
+                                            <img alt="Image placeholder" src={{this}} class="rounded-circle" />
+                                        </a>
+                                        {{/each}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="small-ratings">
+                                            <i class="fa fa-star rating-color"></i>
+                                            <i class="fa fa-star rating-color"></i>
+                                            <i class="fa fa-star rating-color"></i>
+                                            <i class="fa fa-star rating-color"></i>
+                                            <i class="fa fa-star rating-color"></i>
+                                        </div>
+                                    </div>
+            </div>
+            </td>
+            <td class="text-right">
+                <div class="dropdown">
+                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a class="dropdown-item" href="/product/details/{{this._id}}">Detail</a>
+                        <a class="dropdown-item" style="color: red;" href="#">Block</a>
+                    </div>
+                </div>
+            </td>
+            </tr>
+            </a>
+      
+
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>

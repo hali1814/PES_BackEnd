@@ -43,6 +43,11 @@ const admin_productController = {
 
     res.render("productDetail", {product, store: dataStore});
   },
+
+  changeStatus: async function (req, res, next) {
+    const product = await productService.changeStatus(req.params.idProduct, Number(req.params.status))
+    res.render("checkUpdateProduct", {product: product.data});
+  },
 };
 
 module.exports = admin_productController;

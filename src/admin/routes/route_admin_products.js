@@ -13,4 +13,8 @@ router.get('/products/pending', require('../middlewares/authorization'), admin_p
 
 router.get('/product/details/:id', require('../middlewares/authorization'), admin_productController.pageProductDetail)
 
+
+router.get('/product/changeStatus/:idProduct/:status', require('../middlewares/authorization'), admin_productController.changeStatus)
+
+
 module.exports = router;

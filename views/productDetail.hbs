@@ -92,12 +92,26 @@
 
           <hr />
 
-
-          <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-          <a href="#" class="btn btn-primary shadow-0">
-            <i class="me-1 fa fa-shopping-basket"></i>
-            Add to cart
+          {{#if product.status}}
+          <a href="/product/changeStatus/{{product._id}}/0" class="btn btn-success shadow-0"> Approve </a>
+          {{else}}
+          <a href="/product/changeStatus/{{product._id}}/{{product.status}}" class="btn btn-secondary shadow-0 disabled"> Approve </a>
+          {{/if}}
+          
+          {{#if product.status}}
+          <a href="#" class="btn btn-secondary shadow-0 disabled">
+            <i class="me-1 fa fa-ban"></i>
+            Ban
           </a>
+          {{else}}
+          <a href="/product/changeStatus/{{product._id}}/1" class="btn btn-danger shadow-0">
+            <i class="me-1 fa fa-ban"></i>
+            Ban
+          </a>
+          {{/if}}
+
+
+
         </div>
       </main>
     </div>
@@ -224,8 +238,7 @@
               {{#each store.products}}
               <div class="d-flex mb-3">
                 <a href="#" class="me-3">
-                  <img src="{{this.images.[0]}}"
-                    style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                  <img src="{{this.images.[0]}}" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
                 </a>
                 <div class="info">
                   <a href="/product/details/{{this._id}}" class="nav-link mb-1">

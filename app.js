@@ -50,6 +50,15 @@ hbs.registerHelper('renderStatusBill', function(status) {
   return html;
 });
 
+hbs.registerHelper('renderStatusProduct', function(status) {
+  let html = ''
+  switch(status) {
+    case 0: html = '<span class="badge badge-dot"><i class="bg-success"></i>Active</span>'; break;
+    case 1: html = '<span class="badge badge-dot"><i class="bg-warning"></i>Pending</span>'; break;
+  }
+  return html;
+});
+
 hbs.registerHelper('renderStatusUser', function(status) {
   let html = ''
   switch(status) {
