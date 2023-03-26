@@ -85,6 +85,7 @@ const gameController = {
     const { name } = req.body;
     const dataToken = res.locals.haohoa;
     const data = await gameService.register(dataToken._id, name)
+    console.log(data.data)
     require('../injectMethod')(data, res.statusCode, res)
   },
   updateGold: async (req, res, next) => {
@@ -95,6 +96,7 @@ const gameController = {
   getAsset: async (req, res, next) => {
     const dataToken = res.locals.haohoa;
     const data = await gameService.getAsset(dataToken._id)
+
     require('../injectMethod')(data, res.statusCode, res)
   }
 };

@@ -14,7 +14,6 @@ const gameService = {
   register: async function (_id, name) {
     try {
       const checkName = await characterModel.findOne({ name });
-      console.log(checkName);
       if (checkName)
         return require("../standardAPI").jsonSuccessCallApi({
           message: "Name is exist",
@@ -38,7 +37,10 @@ const gameService = {
         lastPosition: [0, 0, 0],
       });
 
-      return require("../standardAPI").jsonSuccessCallApi(createCharacter);
+      return require("../standardAPI").jsonSuccessCallApi(require("../standardAPI").jsonSuccessCallApi({
+        message: "Account have been character",
+        code: 1509,
+      }));
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
