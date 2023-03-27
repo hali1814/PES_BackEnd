@@ -75,12 +75,15 @@ const invoiceService = {
   },
   updateStatusInvoice: async (_id, status) => {
     try {
-      const instance = await userModel.findOneAndUpdate(
+      const instance = await invoiceModel.findOneAndUpdate(
         { _id },
         {
           $set: {
             status
           },
+        },
+        {
+          returnOriginal: false
         }
       );
       return require("../standardAPI").jsonSuccessCallApi(instance);

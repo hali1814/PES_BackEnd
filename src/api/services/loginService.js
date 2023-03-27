@@ -217,6 +217,24 @@ const loginService = {
       return jsonFailureCallApi(err);
     }
   },
+  updateStatusUser: async (_id, status) => {
+    try {
+      const instance = await userModel.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            status
+          },
+        },
+        {
+          returnOriginal: false
+        }
+      );
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  },
 };
 
 module.exports = loginService;

@@ -1,6 +1,6 @@
 {{#if checkStatus}}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Successfully!</strong> Product ID NO.{{product._id}} was updated.
+    <strong>Successfully!</strong> Bill ID NO.{{bill._id}} was updated.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -15,39 +15,43 @@
 </div>
 {{/if}}
 
+
+
+
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold" style="color: #5865F2;">Product PESHOP</h6>
+            <h6 class="m-0 font-weight-bold" style="color: #5865F2;">Bills PESHOP</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table align-items-center table-flush" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Product</th>
-
+                            <th>ID NO.</th>
+                            <th>Vouchers</th>
+                            <th>Date</th>
+                            <th>Total Bill</th>
                             <th>Status</th>
-                            <th>Images</th>
-                            <th>star rate</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Product</th>
-
+                            <th>ID NO.</th>
+                            <th>Vouchers</th>
+                            <th>Date</th>
+                            <th>Total Bill</th>
                             <th>Status</th>
-                            <th>Images</th>
-                            <th>Star rate</th>
                             <th></th>
-
                         </tr>
                     </tfoot>
                     <tbody>
-
+                       
 
                         <tr>
 
@@ -59,47 +63,34 @@
                                             src="http://pes.store/images/fa94a4ca-0771-449c-b7c4-bbf7efcaef50.png" />
                                     </a>
                                     <div class="media-body">
-                                        <span class="mb-0 text-sm">{{upperCase product.name}}</span>
+                                        <span class="mb-0 text-sm">{{bill._id}}</span>
                                     </div>
                                 </div>
                             </th>
-
-
                             <td>
-                                {{{renderStatusProduct product.status}}}
+                                {{length bill.vouchers }}
                             </td>
                             <td>
-                                <div class="avatar-group">
-                                    {{#each product.images}}
-                                    <a href="#" class="avatar avatar-sm" data-toggle="tooltip"
-                                        data-original-title="Ryan Tompson">
-                                        <img alt="Image placeholder" src={{this}} class="rounded-circle" />
-                                    </a>
-                                    {{/each}}
-                                </div>
+                                {{bill.date }}
+
                             </td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="small-ratings">
-                                        <i class="fa fa-star rating-color"></i>
-                                        <i class="fa fa-star rating-color"></i>
-                                        <i class="fa fa-star rating-color"></i>
-                                        <i class="fa fa-star rating-color"></i>
-                                        <i class="fa fa-star rating-color"></i>
-                                    </div>
-                                </div>
+                                {{priceSale bill.amount 0}}
+                            </td>
+                            <td>
+                                {{{renderStatusBill bill.status}}}
+                            </td>
+
+                        </tr>
+                        </a>
+                       
+
+                    </tbody>
+                </table>
             </div>
-            </td>
-
-
-            </tr>
-            </a>
-
-
-            </tbody>
-            </table>
         </div>
     </div>
-</div>
 
 </div>
+
+

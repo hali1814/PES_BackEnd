@@ -41,7 +41,7 @@ hbs.registerHelper('renderStatusBill', function(status) {
   let html = ''
   switch(status) {
     case 0: html = '<label class="statusBar badge-secondary">To Pay</label>'; break;
-    case 1: html = '<label class="statusBar badge-danger">To Ship</label>'; break;
+    case 1: html = '<label class="statusBar badge-info">To Ship</label>'; break;
     case 2: html = '<label class="statusBar badge-primary">To receive</label>'; break;
     case 3: html = '<label class="statusBar badge-success">Completed</label>'; break;
     case 4: html = '<label class="statusBar badge-danger">Cancelled</label>'; break;

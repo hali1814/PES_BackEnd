@@ -101,12 +101,12 @@
           {{#if product.status}}
           <a href="#" class="btn btn-secondary shadow-0 disabled">
             <i class="me-1 fa fa-ban"></i>
-            Ban
+            Pending
           </a>
           {{else}}
-          <a href="/product/changeStatus/{{product._id}}/1" class="btn btn-danger shadow-0">
+          <a href="/product/changeStatus/{{product._id}}/1" class="btn btn-warning shadow-0">
             <i class="me-1 fa fa-ban"></i>
-            Ban
+            Pending
           </a>
           {{/if}}
 

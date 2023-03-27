@@ -46,7 +46,9 @@ const admin_productController = {
 
   changeStatus: async function (req, res, next) {
     const product = await productService.changeStatus(req.params.idProduct, Number(req.params.status))
-    res.render("checkUpdateProduct", {product: product.data});
+    let checkStatus = true;
+    if (product.status == Number(req.params.status)) checkStatus = false
+    res.render("checkUpdateProduct", {product: product.data, checkStatus});
   },
 };
 

@@ -9,6 +9,7 @@ router.get('/clients/all', require('../middlewares/authorization'), clientContro
 router.get('/client/details/:id', require('../middlewares/authorization'), clientController.pageDetails)/* GET home page. */
 
 
+router.get('/client/:id/changeStatus/:status', require('../middlewares/authorization'), clientController.pageUpdateUser)
 
 
 module.exports = router;

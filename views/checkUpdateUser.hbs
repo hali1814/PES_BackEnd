@@ -1,3 +1,21 @@
+{{#if checkStatus}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Successfully!</strong> User ID NO.{{user._id}} was updated.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{else}}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong> Try again!! Contact with admin to fix error if still error in second.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- DataTales Example -->
@@ -31,7 +49,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        {{#each users}}
+                        
 
                         <tr>
 
@@ -39,43 +57,30 @@
                             <th scope="row">
                                 <div class="media align-items-center">
                                     <a href="#" class="avatar rounded-circle mr-3">
-                                        <img alt="Image placeholder" src="{{this.avatar}}" />
+                                        <img alt="Image placeholder" src="{{user.avatar}}" />
                                     </a>
                                     <div class="media-body">
-                                        <span class="mb-0 text-sm">{{upperCase this.nickName}}</span>
+                                        <span class="mb-0 text-sm">{{upperCase user.nickName}}</span>
                                     </div>
                                 </div>
                             </th>
-                            <td style="display: none;">{{this._id}}</td>
+                            <td style="display: none;">{{user._id}}</td>
                             <td>
-                                {{this.userName}}
+                                {{user.userName}}
                             </td>
                             <td>
 
-                                {{this.email}}
+                                {{user.email}}
                             </td>
                             <td>
-                                {{this.createDate}}
+                                {{user.createDate}}
                             </td>
                             <td>
-                               {{{renderStatusUser this.haohoa}}}
-                            </td>
-                            <td class="text-right">
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="/client/details/{{this._id}}">Detail</a>
-           
-                                    </div>
-                                </div>
+                               {{{renderStatusUser user.status}}}
                             </td>
                         </tr>
                         </a>
-                        {{/each}}
-
+                  
                     </tbody>
                 </table>
             </div>

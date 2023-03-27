@@ -37,16 +37,12 @@ const admin_billController = {
 
     res.render("billDetails", {invoice: invoice.data[0], store: store.data, customer: customer.data});
   },
-  pageUpdateBills: async function (req, res, next) {
-    const invoice = await invoiceService.getBillDetails(req.params.id)
-    invoice.data[0].date = require('../../validations/formatDate')(invoice.data[0].date)
-    invoice.data[0].productDetails = invoice.data[0].productDetails[0]
-    invoice.data[0].productDetails.stock = invoice.data[0].productDetails.stock[0]
-
-    const store = await storeService.getStore(invoice.data[0].productDetails.owner)
-    const customer = await userService.getCustomer(invoice.data[0].customer)
-
-    res.redirect("/bills/all");
+  pageUpdateBill: async function (req, res, next) {
+    const bill = await invoiceService.updateStatusInvoice(req.params.idBill, Number(req.params.status))
+    let checkStatus = true;
+    if(!bill) checkStatus = false
+    if (bill.status == Number(req.params.status)) checkStatus = false
+    res.render("checkUpdateBill", {bill: bill.data, checkStatus});
   },
 };
 

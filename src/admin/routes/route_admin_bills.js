@@ -13,6 +13,6 @@ router.get('/vouchers/pes', require('../middlewares/authorization'), billControl
 
 router.get('/bill/details/:id', require('../middlewares/authorization'), billController.pageBillDetails)
 
-
+router.get('/bill/changeStatus/:idBill/:status', require('../middlewares/authorization'), billController.pageUpdateBill)
 
 module.exports = router;

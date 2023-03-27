@@ -37,10 +37,10 @@ const gameService = {
         lastPosition: [0, 0, 0],
       });
 
-      return require("../standardAPI").jsonSuccessCallApi(require("../standardAPI").jsonSuccessCallApi({
-        message: "Account have been character",
+      return require("../standardAPI").jsonSuccessCallApi({
+        message: "Create character successfully",
         code: 1509,
-      }));
+      });
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err);
     }

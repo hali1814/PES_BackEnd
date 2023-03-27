@@ -23,7 +23,8 @@ const admin_clientController = {
     },
     pageDetails: async function (req, res, next) {
       const data = await amin_userService.getProfile(req.params.id)
-      data.yob = require('../../validations/formatDate')(data.date || null)
+      data.yob = require('../../validations/formatDate')(data.date || 'null')
+      data.nickName = data.nickName || 'No Name'
       const vouchers = await userService.getVouchers(data.userName)
       for (let i = 0; i < data.vouchers.length; i++) {
         vouchers.data[i].date = require('../../validations/formatDate')(data.vouchers[i].date) || 'null'
@@ -34,6 +35,15 @@ const admin_clientController = {
       });
 
       res.render("clientDetails", {user: data, vouchers: vouchers.data, bills: bills.data});
+    },
+    pageUpdateUser: async function (req, res, next) {
+      const user = await userService.updateStatusUser(req.params.id, Number(req.params.status))
+      user.data.nickName = user.data.nickName || "null"
+      user.data.createDate = require('../../validations/formatDate')(user.data.createdAt)
+      let checkStatus = true;
+      if(!user) checkStatus = false
+      if (user.status == Number(req.params.status)) checkStatus = false
+      res.render("checkUpdateUser", {user: user.data, checkStatus});
     },
   };
 

@@ -67,7 +67,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="/bill/details/{{this._id}}">Detail</a>
-                                        <a class="dropdown-item" style="color: red;" href="#">Block</a>
+                                        <a class="dropdown-item" style="color: red;" href="/bill/changeStatus/{{this._id}}/4">Cancel</a>
                                     </div>
                                 </div>
                             </td>
@@ -82,37 +82,5 @@
     </div>
 
 </div>
-<!-- /.container-fluid -->
-{{!-- <div class="avatar-group">
-    {{#each this.images}}
-    <a href="#" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
-        <img alt="Image placeholder" src={{this}} class="rounded-circle" />
-    </a>
-    {{/each}}
-</div> --}}
-
-{{!-- <tr>
-    <td style="display:none;">{{this._id}}</td>
-    <td>
-        <div class="media align-items-center">
-            <a href="#" class="avatar rounded-circle mr-3">
-                <img alt="Image placeholder"
-                    src="https://raw.githack.com/creativetimofficial/argon-dashboard/gh-pages/assets-old/img/theme/bootstrap.jpg" />
-            </a>
-            <div class="media-body ">
-                <span class="mb-0 text-sm text-dark">{{this.name}}</span>
-            </div>
-        </div>
-    </td>
-
-    <td class="d-flex justify-content-center align-items-center">
 
 
-        <span class="mb-0 text-sm text-dark ">{{this.genre}}</span>
-        </div>
-
-    </td>
-    <td>22</td>
-    <td>2</td>
-    <td>2</td>
-</tr> --}}

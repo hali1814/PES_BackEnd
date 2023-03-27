@@ -15,7 +15,17 @@
             </div>
           </div>
           <div style="margin-left: 10px;" class="d-flex flex-column">
-            {{{renderStatusBill invoice.status}}}
+            <button
+              type="button"
+              class=""
+              style="background-color: white; border: none;"
+              
+              data-bs-toggle="modal"  
+              data-bs-target="#exampleModal"
+            >
+              {{{renderStatusBill invoice.status}}}
+            </button>
+
           </div>
 
         </div>
@@ -29,14 +39,19 @@
               </tr>
               <tr class="content">
                 <td class="font-weight-bold">{{customer.nickName}}
-                  <br />Phone: {{customer.userName}}
-                  <br />Address: {{customer.address}}</td>
-                <td class="font-weight-bold">SHOP {{store.nameShop}}
+                  <br />Phone:
+                  {{customer.userName}}
+                  <br />Address:
+                  {{customer.address}}</td>
+                <td class="font-weight-bold">SHOP
+                  {{store.nameShop}}
                   <br />
-                   Phone: {{store.owner}}
-                  
-                  <br />Address: {{store.address}}
-                 </td>
+                  Phone:
+                  {{store.owner}}
+
+                  <br />Address:
+                  {{store.address}}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -57,17 +72,19 @@
                 <td><span
                     class="h5"
                     style="font-size: small; text-decoration: line-through; color: rgb(198, 198, 198);"
-                  >{{priceSale
-                      invoice.productDetails.stock.price
-                      0
-                    }}</span> <span
+                  >{{priceSale invoice.productDetails.stock.price 0}}</span>
+                  <span
                     class="h5"
                     style="font-size: small; color: red;"
                   >{{priceSale
                       invoice.productDetails.stock.price
                       invoice.productDetails.sale
                     }}</span></td>
-                <td class="text-center">{{totalBill invoice.productDetails.stock.price invoice.quantity invoice.productDetails.sale}}</td>
+                <td class="text-center">{{totalBill
+                    invoice.productDetails.stock.price
+                    invoice.quantity
+                    invoice.productDetails.sale
+                  }}</td>
               </tr>
             </tbody>
           </table>
@@ -91,7 +108,11 @@
                   </td>
                   <td>
                     <div class="text-right">
-                      <span>{{totalBill invoice.productDetails.stock.price invoice.quantity invoice.productDetails.sale}}</span>
+                      <span>{{totalBill
+                          invoice.productDetails.stock.price
+                          invoice.quantity
+                          invoice.productDetails.sale
+                        }}</span>
                     </div>
                   </td>
                 </tr>
@@ -151,7 +172,10 @@
                   </td>
                   <td>
                     <div class="text-right">
-                      <span class="font-weight-bold">{{priceSale invoice.amount 0}}</span>
+                      <span class="font-weight-bold">{{priceSale
+                          invoice.amount
+                          0
+                        }}</span>
                     </div>
                   </td>
                 </tr>
@@ -186,6 +210,36 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Select Status</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex flex-column">
+        <a class="badge-secondary"href="/bill/changeStatus/{{invoice._id}}/0" style="width: 100%; margin-bottom: 10px; text-align: center;  text-decoration: none;">To Pay</a>
+        <a class="badge-info" href="/bill/changeStatus/{{invoice._id}}/1" style="width: 100%; margin-bottom: 10px; text-align: center;   text-decoration: none;">To Ship</a>
+        <a class="badge-primary" href="/bill/changeStatus/{{invoice._id}}/2" style="width: 100%; margin-bottom: 10px; text-align: center;   text-decoration: none;">To receive</a>
+        <a class="badge-success" href="/bill/changeStatus/{{invoice._id}}/3" style="width: 100%; margin-bottom: 10px; text-align: center;   text-decoration: none;">Completed</a>
+        <a class="badge-danger" href="/bill/changeStatus/{{invoice._id}}/4" style="width: 100%; margin-bottom: 10px; text-align: center;   text-decoration: none;">Cancelled</a>
       </div>
     </div>
   </div>
