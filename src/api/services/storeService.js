@@ -104,7 +104,39 @@ const storeService = {
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
-  }
+  },
+  loginService: async function (userName) {
+    try {
+      const instance = await storeModel.findOne({owner: userName});
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  },
+  registerAccount: async (data) => {
+    try {
+      const tmp = await storeService.loginService(data.userName);
+      if (tmp.data)
+        return require("../standardAPI").jsonFailure({
+          message: "Account already exists !!!",
+        });
+
+      const instance = await storeModel.insertMany({
+        owner: data.userName,
+        password: data.password,
+        avatar: data.avatar ||
+          "https://image.cnbcfm.com/api/v1/image/106686172-1598966433320-gettyimages-1152439648-istockalypse-home-office-00062.jpeg?v=1599013160",
+        email: data.email,
+        nameShop: data.nameShop,
+        address: data.address,
+        status: "2",
+        description: data.description,
+      });
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  },
 };
 
 module.exports = storeService;

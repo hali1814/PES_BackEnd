@@ -15,4 +15,8 @@ router.get('/products/flash_sale', require('../middlewares/authorization') , pro
 //GET /api/product/:id
 router.get('/product/:idProduct', require('../middlewares/authorization') , productController.getProductById);
 
+
+////PES STORE
+router.post('/pes_store/product/add', require('../middlewares/pestore_authorization') , productController.addProduct);
+
 module.exports = router;

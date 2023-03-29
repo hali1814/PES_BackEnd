@@ -112,6 +112,16 @@ const productService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
   },
+  addProduct: async function (data) {
+    try {
+      const instance = await productModel.insertMany({
+        ...data
+      });
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+  },
 };
 
 // const checkLogin = async (userName) => {
