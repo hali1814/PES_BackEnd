@@ -4,7 +4,6 @@ const storeService = require("../services/storeService");
 const genreModel = require("../../utils/models/genre");
 const cartModel = require("../../utils/models/bill");
 
-
 const { ObjectId } = require("mongodb");
 
 ///////////
@@ -104,8 +103,8 @@ const productService = {
           },
         },
         {
-            returnOriginal: false
-          }
+          returnOriginal: false,
+        }
       );
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
@@ -115,8 +114,20 @@ const productService = {
   addProduct: async function (data) {
     try {
       const instance = await productModel.insertMany({
-        ...data
+        ...data,
       });
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+  },
+  increaseSold: async function (idProduct, quantity) {
+    try {
+      const instance = await productModel.findByIdAndUpdate(
+        { _id: idProduct },
+        { $inc: { sold: quantity } },
+        { returnOriginal: false }
+      );
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err);

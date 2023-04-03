@@ -3,6 +3,7 @@ const cartService = require("../services/billService");
 const loginService = require("../services/loginService");
 const { ObjectId } = require("mongodb");
 const billService = require("../services/billService");
+const productService = require("../services/productService");
 /////////////////
 //////////////////////
 
@@ -16,7 +17,7 @@ const invoiceController = {
       element.productDetails[0].stock = element.productDetails[0].stock.filter(
         (stock) => stock.size == element.size && stock.color == element.color
       );
-      element.productDetails = element.productDetails[0]
+      element.productDetails = element.productDetails[0];
     });
     require("../injectMethod")(data, res.statusCode, res);
   },
@@ -127,7 +128,7 @@ const invoiceController = {
     if (voucher_shipping) {
       voucher_shipping = (await loginService.getVoucherById(voucher_shipping))
         .data;
-      await loginService.deleteVoucher(voucher_shipping._id, dataToken._id)
+      await loginService.deleteVoucher(voucher_shipping._id, dataToken._id);
       if (shipping_price >= voucher_shipping.min) {
         discount_shipping = shipping_price / 2;
 
@@ -138,7 +139,7 @@ const invoiceController = {
     //calculator for voucher pes
     if (voucher_pes) {
       voucher_pes = (await loginService.getVoucherById(voucher_pes)).data;
-      await loginService.deleteVoucher(voucher_pes._id, dataToken._id)
+      await loginService.deleteVoucher(voucher_pes._id, dataToken._id);
       if (amountBill >= voucher_pes.min) {
         discount = voucher_pes.value;
       }
@@ -162,6 +163,8 @@ const invoiceController = {
     //
     let listBills = new Array();
     for (let i = 0; i < listProduct.length; i++) {
+      //delete product
+      await productService.increaseSold(listProduct[i].idProduct, listProduct[i].quantity)
       listBills.push({
         idProduct: ObjectId(listProduct[i].idProduct),
         customer: ObjectId(dataToken._id),
@@ -193,13 +196,20 @@ const invoiceController = {
         const content = {
           message: "Your order has been placed successfully.",
         };
-        await billService.delete(dataToken._id)
-        res.json(require("../standardAPI").jsonSuccess(content, res.statusCode));
+        
+        await billService.delete(dataToken._id);
+        res.json(
+          require("../standardAPI").jsonSuccess(content, res.statusCode)
+        );
       } else res.json(data);
-    }else {
-      res.json(require("../standardAPI").jsonFailure({message: 'your cart is empty ??'}, res.statusCode));
+    } else {
+      res.json(
+        require("../standardAPI").jsonFailure(
+          { message: "your cart is empty ??" },
+          res.statusCode
+        )
+      );
     }
-
   },
   getBillDetails: async (req, res, next) => {
     const { id } = req.params;
@@ -208,9 +218,24 @@ const invoiceController = {
       element.productDetails[0].stock = element.productDetails[0].stock.filter(
         (stock) => stock.size == element.size && stock.color == element.color
       );
-      element.productDetails = element.productDetails[0]
+      element.productDetails = element.productDetails[0];
     });
-    data.data = data.data[0]
+    data.data = data.data[0];
+    require("../injectMethod")(data, res.statusCode, res);
+  },
+  cancelStatusBill: async (req, res, next) => {
+    const dataToken = res.locals.haohoa;
+    const { idBill } = req.body;
+    if (!idBill) {
+      res.send("idBill empty !!");
+      return;
+    }
+    const data = await invoiceService.updateStatusInvoice(idBill, 4, dataToken._id);
+    if(!data.data) {
+        console.log(invoiceController.toString(), data)
+        res.send("idBill empty or bill have been status 4 !!");
+        return;
+    }
     require("../injectMethod")(data, res.statusCode, res);
   },
 };

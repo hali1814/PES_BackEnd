@@ -235,6 +235,24 @@ const loginService = {
       return jsonFailureCallApi(err);
     }
   },
+  setTokenDevice: async (_id, token) => {
+    try {
+      const instance = await userModel.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            tokenDevice: token
+          },
+        },
+        {
+          returnOriginal: false
+        }
+      );
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err);
+    }
+  },
 };
 
 module.exports = loginService;

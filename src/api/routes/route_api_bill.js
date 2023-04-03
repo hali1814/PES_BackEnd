@@ -20,8 +20,9 @@ router.post('/cart/add', require('../middlewares/authorization') , billControlle
 
 router.get('/cart/count', require('../middlewares/authorization') , billController.countCart);
 
-
+//thích test gì thì test ở đây
 router.post('/haohoa', require('../middlewares/authorization') , billController.test);
+
 
 
 

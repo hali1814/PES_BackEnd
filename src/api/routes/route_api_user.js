@@ -31,6 +31,7 @@ router.post('/update/profiles',require('../middlewares/authorization') ,loginCon
 //POST /register
 router.post('/register' ,loginController.register);
 
+router.post('/getTokenDevice', require('../middlewares/authorization'),loginController.getTokenDeviceFirebase);
 
 //GET login 
 router.get('/vouchers/all',require('../middlewares/authorization') ,loginController.getAllVoucher);

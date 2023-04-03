@@ -2,6 +2,7 @@ const loginService = require("../services/loginService");
 const jwt = require("jsonwebtoken");
 /////////////////
 const standardJson = require("../standardAPI");
+const user = require("../../utils/models/user");
 
 //////
 const loginController = {
@@ -147,11 +148,40 @@ const loginController = {
       quantity,
       tokenData._id
     );
-    require('../injectMethod')(data, res.statusCode, res)
+    require("../injectMethod")(data, res.statusCode, res);
   },
   getAllVoucher: async (req, res, next) => {
     const data = await loginService.getAllVoucher();
     require("../injectMethod")(data, res.statusCode, res);
+  },
+  getTokenDeviceFirebase: async (req, res, next) => {
+    const tokenData = res.locals.haohoa;
+    const { tokenDevice } = req.body;
+    if (!tokenDevice) {
+      res.send("Chưa truyền token !!");
+      return;
+    }
+
+    const data = await loginService.setTokenDevice(tokenData._id, tokenDevice);
+    if (data.data.tokenDevice == tokenDevice)
+      require("../injectMethod")(
+        {
+          status: "success",
+          data: { message: "Adding token device successfully !!" },
+        },
+        res.statusCode,
+        res
+      );
+    else {
+      require("../injectMethod")(
+        {
+          status: "failure",
+          data: { message: "Adding token device fail !!" },
+        },
+        res.statusCode,
+        res
+      );
+    }
   },
 };
 

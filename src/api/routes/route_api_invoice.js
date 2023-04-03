@@ -17,4 +17,7 @@ router.post('/bill/add', require('../middlewares/authorization') , invoiceContro
 router.get('/bill/:id', require('../middlewares/authorization') , invoiceController.getBillDetails);
 
 
+
+router.post('/bill/status/cancel', require('../middlewares/authorization') , invoiceController.cancelStatusBill);
+
 module.exports = router;

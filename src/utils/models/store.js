@@ -9,7 +9,7 @@ const store = new Schema({
     address: String,
     nameShop: String,
     avatar: String,
-    status: String, 
+    status: Number, 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });
