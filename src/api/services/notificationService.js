@@ -87,6 +87,7 @@ const notificationService = {
             imagesProduct: "$product.images",
           },
         },
+        { $sort: { createdAt: -1 } },
       ]);
 
       return require("../standardAPI").jsonSuccessCallApi(instance);
