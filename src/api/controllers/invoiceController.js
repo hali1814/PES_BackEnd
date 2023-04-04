@@ -238,6 +238,55 @@ const invoiceController = {
     }
     require("../injectMethod")(data, res.statusCode, res);
   },
+  topPayToShip: async (req, res, next) => {
+    const dataToken = res.locals.haohoa;
+    
+    const { idBill, idCustomer } = req.body;
+    const customer = await loginService.getCustomer(idCustomer)
+    const tokenDevice = customer.data.tokenDevice
+    if (!idBill) {
+      res.send("idBill empty !!");
+      return;
+    }
+    const data = await invoiceService.topPayToShip(idBill, idCustomer, tokenDevice);
+    if(!data.data) {
+        console.log(invoiceController.toString(), data)
+        res.send("idBill empty or bill have been status 1 !!");
+        return;
+    }
+    require("../injectMethod")(data, res.statusCode, res);
+  },
+  toShipToReceive: async (req, res, next) => {
+    const dataToken = res.locals.haohoa;
+    const { idBill } = req.body;
+    if (!idBill) {
+      res.send("idBill empty !!");
+      return;
+    }
+    const data = await invoiceService.updateStatusInvoice(idBill, 4, dataToken._id);
+    if(!data.data) {
+        console.log(invoiceController.toString(), data)
+        res.send("idBill empty or bill have been status 4 !!");
+        return;
+    }
+    require("../injectMethod")(data, res.statusCode, res);
+  },
+  toReceiveToCompleted: async (req, res, next) => {
+    const dataToken = res.locals.haohoa;
+    const { idBill } = req.body;
+    if (!idBill) {
+      res.send("idBill empty !!");
+      return;
+    }
+    const data = await invoiceService.updateStatusInvoice(idBill, 4, dataToken._id);
+    if(!data.data) {
+        console.log(invoiceController.toString(), data)
+        res.send("idBill empty or bill have been status 4 !!");
+        return;
+    }
+    require("../injectMethod")(data, res.statusCode, res);
+  },
+  
 };
 
 module.exports = invoiceController;

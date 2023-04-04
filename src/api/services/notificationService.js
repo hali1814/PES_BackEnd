@@ -16,13 +16,13 @@ const notificationService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
   },
-  pushNotification: async function (data) {
+  pushNotification: async function (data, tokenDevice) {
     try {
       // Thông tin cấu hình
       const payload = {
         notification: {
-          title: "Thông báo mới",
-          body: "Bạn vừa nhận được một thông báo mới!",
+          title: data.title,
+          body: data.body,
           icon: "http://pes.store/images/haohoa_logo.png",
         },
       };
@@ -37,7 +37,7 @@ const notificationService = {
       admin
         .messaging()
         .sendToDevice(
-          "enYs6ACrR32fiIiX0Y0Dhl:APA91bHk_U1kjm3IJ3U9paUGQwFsksKEkd5HTKd32yadrM1RYhCXJ7eVL0A5aVJCloWXlLUPU_eapl91fim-4Pfs9ekhFjOxLPE3b41yqHOpRIaiZPT-BS-ExDpH52Di1W8S9SlUvwCm",
+          tokenDevice,
           payload,
           options
         )
@@ -99,7 +99,7 @@ const notificationService = {
     try {
       const instance = await notificationModel.countDocuments({
         owner,
-        status: 1,
+        status: 0,
       });
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {

@@ -13,7 +13,7 @@ const loginService = {
   },
   getCustomer: async function (id) {
     try {
-      const instance = await userModel.findOne({ _id: ObjectId(id), role: "customer" }).select('userName nickName address');
+      const instance = await userModel.findOne({ _id: ObjectId(id), role: "customer" }).select('userName nickName address tokenDevice');
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
       return jsonFailureCallApi(err);

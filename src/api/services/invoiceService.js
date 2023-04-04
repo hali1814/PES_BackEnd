@@ -125,6 +125,135 @@ const invoiceService = {
       return require("../standardAPI").jsonFailureCallApi(err.toString());
     }
   },
+  topPayToShip: async (_id, idUser, tokenDevice) => {
+    try { 
+      const instance = await invoiceModel.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            status: 1,
+          },
+          $push: {
+            information: {
+              date: new Date(),
+              title: "Kiểm duyệt",
+              msg: "Đơn hàng đang được chuẩn bị",
+            },
+          },
+        },
+        {
+          returnOriginal: false,
+        }
+      );
+      if (instance) {
+        const dataNotification = {
+          owner: ObjectId(idUser),
+          idBill: ObjectId(_id),
+          title: `Kiểm duyệt`,
+          message: `Đơn hàng đã được chấp nhận bởi shop`,
+          Date : new Date(),
+          status: 0
+        }
+        await notificationService.addNotification(dataNotification)
+        await notificationService.pushNotification({
+          title: `PES`,
+          body: `Đơn hàng của bạn đã được chấp nhận bởi shop`
+        }, tokenDevice)
+      }
+      
+
+
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+  },
+  toShipToReceive: async (_id, idUser, tokenDevice) => {
+    try { 
+      const instance = await invoiceModel.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            status: 2,
+          },
+          $push: {
+            information: {
+              date: new Date(),
+              title: "Chuyển giao",
+              msg: "Đơn hàng đang trên đường đến chổ bạn",
+            },
+          },
+        },
+        {
+          returnOriginal: false,
+        }
+      );
+      if (instance) {
+        const dataNotification = {
+          owner: ObjectId(idUser),
+          idBill: ObjectId(_id),
+          title: `Chuyển giao`,
+          message: `Đơn hàng đang trên đường đến chổ bạn`,
+          Date : new Date(),
+          status: 0
+        }
+        await notificationService.addNotification(dataNotification)
+        await notificationService.pushNotification({
+          title: `PES`,
+          body: `Đơn hàng đang trên đường đến chổ bạn`
+        }, tokenDevice)
+      }
+      
+
+
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+  },
+  toReceiveToCompleted: async (_id, idUser, tokenDevice) => {
+    try { 
+      const instance = await invoiceModel.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            status: 2,
+          },
+          $push: {
+            information: {
+              date: new Date(),
+              title: "Hoàn thành",
+              msg: "Đơn hàng đã được giao đến bạn",
+            },
+          },
+        },
+        {
+          returnOriginal: false,
+        }
+      );
+      if (instance) {
+        const dataNotification = {
+          owner: ObjectId(idUser),
+          idBill: ObjectId(_id),
+          title: `Hoàn thành`,
+          message: `Đơn hàng đã được giao đến bạn`,
+          Date : new Date(),
+          status: 0
+        }
+        await notificationService.addNotification(dataNotification)
+        await notificationService.pushNotification({
+          title: `PES`,
+          body: `Đơn hàng đã được giao đến bạn`
+        }, tokenDevice)
+      }
+      
+
+
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+  },
 };
 
 module.exports = invoiceService;

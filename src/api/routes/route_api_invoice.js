@@ -16,8 +16,16 @@ router.post('/bill/add', require('../middlewares/authorization') , invoiceContro
 
 router.get('/bill/:id', require('../middlewares/authorization') , invoiceController.getBillDetails);
 
-
-
 router.post('/bill/status/cancel', require('../middlewares/authorization') , invoiceController.cancelStatusBill);
+
+
+
+//shop PES
+router.post('/pes_store/bill/status/topPayToShip', require('../middlewares/pestore_authorization') , invoiceController.topPayToShip);
+
+router.post('/pes_store/bill/status/toShipToReceive', require('../middlewares/pestore_authorization') , invoiceController.toShipToReceive);
+
+router.post('/pes_store/bill/status/toReceiveToCompleted', require('../middlewares/pestore_authorization') , invoiceController.toReceiveToCompleted);
+
 
 module.exports = router;
