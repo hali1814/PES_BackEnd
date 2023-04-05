@@ -52,7 +52,7 @@ const billService = {
       //checking product has already exists. increasing 1 if it is exists
       const checkExist = await bill.updateOne(
         { customer: ObjectId(customer) },
-        { $inc: { "listCart.$[listCart].quantity": 1 } },
+        { $inc: { "listCart.$[listCart].quantity": json.quantity } },
         {
           arrayFilters: [
             {
