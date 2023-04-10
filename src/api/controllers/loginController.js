@@ -183,6 +183,18 @@ const loginController = {
       );
     }
   },
+  active: async (req, res, next) => {
+    const {userName} = req.body
+    const data = await loginService.activeUser(userName);
+    if(!data.data){
+      res.json({msg: 'Tai khoan khong ton tai hoac da duoc active'})
+      return
+    }else {
+      data.data = {msg: 'active successfully !!'}
+      require("../injectMethod")(data, res.statusCode, res); 
+    }
+    
+  },
 };
 
 module.exports = loginController;

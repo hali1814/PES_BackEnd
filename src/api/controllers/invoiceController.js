@@ -225,12 +225,12 @@ const invoiceController = {
   },
   cancelStatusBill: async (req, res, next) => {
     const dataToken = res.locals.haohoa;
-    const { idBill } = req.body;
+    const { idBill, reason } = req.body;
     if (!idBill) {
       res.send("idBill empty !!");
       return;
     }
-    const data = await invoiceService.updateStatusInvoice(idBill, 4, dataToken._id);
+    const data = await invoiceService.updateStatusInvoice(idBill, 4, dataToken._id, reason);
     if(!data.data) {
         console.log(invoiceController.toString(), data)
         res.send("idBill empty or bill have been status 4 !!");
@@ -258,27 +258,46 @@ const invoiceController = {
   },
   toShipToReceive: async (req, res, next) => {
     const dataToken = res.locals.haohoa;
-    const { idBill } = req.body;
+    const { idBill, idCustomer } = req.body;
+    const customer = await loginService.getCustomer(idCustomer)
+    const tokenDevice = customer.data.tokenDevice
     if (!idBill) {
       res.send("idBill empty !!");
       return;
     }
-    const data = await invoiceService.updateStatusInvoice(idBill, 4, dataToken._id);
+    const data = await invoiceService.toShipToReceive(idBill, idCustomer, tokenDevice);
     if(!data.data) {
         console.log(invoiceController.toString(), data)
-        res.send("idBill empty or bill have been status 4 !!");
+        res.send("idBill empty or bill have been status 2 !!");
         return;
     }
     require("../injectMethod")(data, res.statusCode, res);
   },
   toReceiveToCompleted: async (req, res, next) => {
     const dataToken = res.locals.haohoa;
-    const { idBill } = req.body;
+    
+    const { idBill, idCustomer } = req.body;
+    const customer = await loginService.getCustomer(idCustomer)
+    const tokenDevice = customer.data.tokenDevice
     if (!idBill) {
       res.send("idBill empty !!");
       return;
     }
-    const data = await invoiceService.updateStatusInvoice(idBill, 4, dataToken._id);
+    const data = await invoiceService.toReceiveToCompleted(idBill, idCustomer, tokenDevice);
+    if(!data.data) {
+        console.log(invoiceController.toString(), data)
+        res.send("idBill empty or bill have been status 1 !!");
+        return;
+    }
+    require("../injectMethod")(data, res.statusCode, res);
+  },
+  cancelStatusBillByStore: async (req, res, next) => {
+    const { idBill, idCustomer, reason } = req.body;
+    if (!idBill) {
+      res.send("idBill empty !!");
+      return;
+    }
+    const data = await invoiceService.updateStatusInvoice(idBill, 4, idCustomer, reason);
     if(!data.data) {
         console.log(invoiceController.toString(), data)
         res.send("idBill empty or bill have been status 4 !!");

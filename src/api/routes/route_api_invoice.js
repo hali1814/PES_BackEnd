@@ -28,4 +28,7 @@ router.post('/pes_store/bill/status/toShipToReceive', require('../middlewares/pe
 router.post('/pes_store/bill/status/toReceiveToCompleted', require('../middlewares/pestore_authorization') , invoiceController.toReceiveToCompleted);
 
 
+router.post('/pes_store/bill/status/cancel', require('../middlewares/pestore_authorization') , invoiceController.cancelStatusBillByStore);
+
+
 module.exports = router;

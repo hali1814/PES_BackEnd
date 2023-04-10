@@ -83,7 +83,7 @@ const invoiceService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
   },
-  updateStatusInvoice: async (_id, status, idUser) => {
+  updateStatusInvoice: async (_id, status, idUser, reason) => {
     try {
 
       const cancelSold = await invoiceModel.findOne(
@@ -101,7 +101,8 @@ const invoiceService = {
             information: {
               date: new Date(),
               title: "Hủy đơn hàng",
-              msg: "Đơn hàng đã bị hủy bởi bạn",
+              msg: "Đơn hàng đã bị hủy",
+              reason
             },
           },
         },
@@ -217,7 +218,7 @@ const invoiceService = {
         { _id },
         {
           $set: {
-            status: 2,
+            status: 3,
           },
           $push: {
             information: {

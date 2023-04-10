@@ -33,8 +33,10 @@ router.post('/register' ,loginController.register);
 
 router.post('/getTokenDevice', require('../middlewares/authorization'),loginController.getTokenDeviceFirebase);
 
-//GET login 
 router.get('/vouchers/all',require('../middlewares/authorization') ,loginController.getAllVoucher);
+
+
+router.post('/active',loginController.active);
 
 // /* GET register page. */
 // router.get('/register', function(req, res, next) {
