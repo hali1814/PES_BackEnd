@@ -255,6 +255,24 @@ const invoiceService = {
       return require("../standardAPI").jsonFailureCallApi(err.toString());
     }
   },
+  getInvoiceOfStoreByStatus: async function (owner, status) {
+    try {
+      const instance = await invoiceModel.aggregate([
+        {$match: {status: status}},
+        {$lookup : {
+          from: 'products',
+          localField: 'idProduct',
+          foreignField: '_id',
+          as: 'productDetails'
+        }},
+        {$unwind: '$productDetails'},
+        {$match: {'productDetails.owner': owner}}
+      ]);
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err);
+    }
+  },
 };
 
 module.exports = invoiceService;

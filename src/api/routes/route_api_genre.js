@@ -8,4 +8,10 @@ router.get('/genres/all', require('../middlewares/authorization') , genreControl
 
 
 
+router.get('/pes_store/genres/all', require('../middlewares/pestore_authorization') , genreController.getAll);
+
+
+
+
+
 module.exports = router;

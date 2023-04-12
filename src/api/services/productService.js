@@ -133,6 +133,52 @@ const productService = {
       return require("../standardAPI").jsonFailureCallApi(err);
     }
   },
+  addStock: async function (owner, data) {
+    try {
+      let instance = await productModel.findOne({
+        owner,
+        _id: ObjectId(data.idProduct),
+      });
+      if (!instance) {
+        instance = {
+          msg: "Sản phẩm không tồn tại",
+        };
+        return require("../standardAPI").jsonSuccessCallApi(instance);
+      }
+
+      instance = await productModel.find({
+        stock: { $elemMatch: { color: data.color, size: data.size } },
+      });
+      if (instance.length > 0) {
+        instance = {
+          msg: "Stock này đã tồn tại",
+        };
+        return require("../standardAPI").jsonSuccessCallApi(instance);
+      }
+
+      instance = await productModel.updateOne(
+        {
+          owner,
+          _id: ObjectId(data.idProduct),
+        },
+        {
+          $push: {
+            stock: {
+              color: data.color,
+              size: data.size,
+              stock: data.stock,
+              price: data.price,
+              status: 0,
+            },
+          },
+        }
+      );
+
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+  },
 };
 
 // const checkLogin = async (userName) => {

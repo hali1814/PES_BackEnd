@@ -305,6 +305,20 @@ const invoiceController = {
     }
     require("../injectMethod")(data, res.statusCode, res);
   },
+  getBillsOfStoreByStatus: async (req, res, next) => {
+    const { _id, owner } = res.locals.haohoa;
+    const { status } = req.params;
+    const data = await invoiceService.getInvoiceOfStoreByStatus(owner, Number(status));
+    // res.json(data)
+   
+    data.data.forEach((element) => {
+      element.productDetails.stock = element.productDetails.stock.filter(
+        (stock) => stock.size == element.size && stock.color == element.color
+      );
+      element.productDetails = element.productDetails;
+    });
+    require("../injectMethod")(data, res.statusCode, res);
+  },
   
 };
 

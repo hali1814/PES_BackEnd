@@ -31,4 +31,7 @@ router.post('/pes_store/bill/status/toReceiveToCompleted', require('../middlewar
 router.post('/pes_store/bill/status/cancel', require('../middlewares/pestore_authorization') , invoiceController.cancelStatusBillByStore);
 
 
+router.get('/pes_store/bills/:status', require('../middlewares/pestore_authorization') , invoiceController.getBillsOfStoreByStatus);
+
+
 module.exports = router;

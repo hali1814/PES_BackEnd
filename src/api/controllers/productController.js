@@ -60,6 +60,11 @@ const productController = {
     const addProduct = await productSerVice.addProduct(dataProduct)
   
     require('../injectMethod')(addProduct, res.statusCode, res)
+  },
+  addStock : async (req, res, next) => {
+    const dataToken = res.locals.haohoa;
+    const data = await productSerVice.addStock(dataToken.owner, req.body);
+    require('../injectMethod')(data, res.statusCode, res)
   }
   //
 };

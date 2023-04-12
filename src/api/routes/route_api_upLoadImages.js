@@ -5,10 +5,10 @@ const upload = require('../middlewares/upLoadImageMiddleware');
 let upLoadController = require('../controllers/upLoadImagesController')
 
 //GET /api/upLoadOne
-router.post('/upLoadOne', [require('../middlewares/authorization'), upload.single('image')] , upLoadController.upLoadOne);
+router.post('/upLoadOne', upload.single('image'), upLoadController.upLoadOne);
 
 //GET /api/upLoadOne
-router.post('/upLoadMany', [require('../middlewares/authorization'), upload.array('images')] , upLoadController.upLoadMany);
+router.post('/upLoadMany', upload.array('images') , upLoadController.upLoadMany);
 
 
 
