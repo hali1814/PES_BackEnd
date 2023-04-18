@@ -2,6 +2,8 @@ var invoiceModel = require("../../utils/models/invoice");
 const { ObjectId } = require("mongodb");
 const productService = require('./productService');
 const notificationService = require("./notificationService");
+const rateService = require("./rateService");
+const invoice = require("../../utils/models/invoice");
 
 const invoiceService = {
   getInvoiceByStatus: async function (status, customer) {
@@ -241,11 +243,25 @@ const invoiceService = {
           Date : new Date(),
           status: 0
         }
+        //adding to list notification 
         await notificationService.addNotification(dataNotification)
+        //push notification fcm
         await notificationService.pushNotification({
           title: `PES`,
           body: `Đơn hàng đã được giao đến bạn`
         }, tokenDevice)
+        
+        console.log(instance)
+        //creating document rate.
+        const schemaRate = {
+          customer: ObjectId(idUser),
+          idBill: ObjectId(_id),
+          idProduct: ObjectId(instance.idProduct),
+          start: 0,
+          msg: '',
+          status: 0
+        }
+        await rateService.insert(schemaRate)
       }
       
 

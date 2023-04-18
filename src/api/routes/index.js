@@ -10,6 +10,7 @@ var storeRouter = require('./route_api_store')
 var invoiceRouter = require('./route_api_invoice')
 var gameRouter = require('./route_api_game')
 var notificationRouter = require('./route_api_notification')
+var rateRouter = require('./route_api_rate')
 
 apiRouter.use(usersRouter)
 apiRouter.use(productRouter)
@@ -20,6 +21,7 @@ apiRouter.use(storeRouter)
 apiRouter.use(invoiceRouter)
 apiRouter.use(gameRouter)
 apiRouter.use(notificationRouter)
+apiRouter.use(rateRouter)
 
 
 

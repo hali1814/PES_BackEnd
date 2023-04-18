@@ -5,6 +5,7 @@ const genreModel = require("../../utils/models/genre");
 const cartModel = require("../../utils/models/bill");
 
 const { ObjectId } = require("mongodb");
+const rate = require("../../utils/models/rate");
 
 ///////////
 const productService = {
@@ -66,6 +67,36 @@ const productService = {
       const instanceType = await genreModel.findOne({
         _id: instanceProduct.type,
       });
+      const instanceRate = await rate.aggregate([
+        { $match: { idProduct: ObjectId(idProduct), status: 1 } },
+        {
+          $lookup: {
+            from: "users",
+            localField: "customer",
+            foreignField: "_id",
+            as: "owner",
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            customer: 1,
+            idBill: 1,
+            idProduct: 1,
+            start: 1,
+            msg: 1,
+            status: 1,
+            createdAt: 1,
+            updatedAt: 1,
+            owner: {
+              _id: 1,
+              userName: 1,
+              avatar: 1,
+            },
+          },
+        },
+      ]);
+
       const quantityCart = await cartModel.aggregate([
         { $match: { customer: ObjectId(_id) } },
         {
@@ -85,6 +116,7 @@ const productService = {
       const data = {
         ...instanceProduct._doc,
         shop,
+        rates: instanceRate,
         genre: instanceType.label,
         quantityCart: quantityCart[0]?.arrayLength || 0,
       };
