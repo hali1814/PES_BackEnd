@@ -9,7 +9,7 @@ const productController = {
   getAll: async (req, res, next) => {
 
     const data = await productSerVice.getALl(0);
-
+    data.data.sort((e) => Math.random() - 0.5)
     require('../injectMethod')(data, res.statusCode, res)
   },
   //GET /api/products/flash_sale

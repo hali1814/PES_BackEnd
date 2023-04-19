@@ -23,6 +23,14 @@ const rateService = {
             as: "product",
           },
         },
+        {
+          $lookup: {
+            from: "invoices",
+            localField: "idBill",
+            foreignField: "_id",
+            as: "bill",
+          },
+        },
       ]);
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {

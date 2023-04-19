@@ -20,4 +20,7 @@ router.get('/product/:idProduct', require('../middlewares/authorization') , prod
 router.post('/pes_store/product/add', require('../middlewares/pestore_authorization') , productController.addProduct);
 router.post('/pes_store/product/stock/add', require('../middlewares/pestore_authorization') , productController.addStock);
 
+//GET /api/product/:id
+router.get('/pes_store/product/:idProduct', require('../middlewares/pestore_authorization') , productController.getProductById);
+
 module.exports = router;
