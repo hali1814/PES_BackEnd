@@ -160,7 +160,8 @@ const invoiceService = {
         await notificationService.addNotification(dataNotification)
         await notificationService.pushNotification({
           title: `PES`,
-          body: `Đơn hàng của bạn đã được chấp nhận bởi shop`
+          body: `Đơn hàng của bạn đã được chấp nhận bởi shop`,
+          idBill: _id
         }, tokenDevice)
       }
       
@@ -203,7 +204,9 @@ const invoiceService = {
         await notificationService.addNotification(dataNotification)
         await notificationService.pushNotification({
           title: `PES`,
-          body: `Đơn hàng đang trên đường đến chổ bạn`
+          body: `Đơn hàng đang trên đường đến chổ bạn`,
+          idBill: _id
+          
         }, tokenDevice)
       }
       
@@ -248,7 +251,8 @@ const invoiceService = {
         //push notification fcm
         await notificationService.pushNotification({
           title: `PES`,
-          body: `Đơn hàng đã được giao đến bạn`
+          body: `Đơn hàng đã được giao đến bạn`,
+          idBill: _id
         }, tokenDevice)
         
         console.log(instance)

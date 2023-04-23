@@ -54,7 +54,7 @@ const productService = {
   },
   getProductsByGenre: async function (idGenre) {
     try {
-      const instance = await productModel.find({ type: idGenre });
+      const instance = await productModel.find({ type: idGenre, status: 0});
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err);
@@ -207,6 +207,39 @@ const productService = {
       );
 
       return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+  },
+  ///search 
+  suggestSearch: async function (searchData) {
+    try {
+      let instance = await productModel.find({
+        name: { $regex: new RegExp(`^${searchData}`, 'i') },
+        status: 0
+      });
+
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return require("../standardAPI").jsonFailureCallApi(err.toString());
+    }
+  },
+
+  resultSearch: async function (searchData) {
+    try {
+      let arrSearch = []
+      let instance = await productModel.find({
+        name: { $regex: new RegExp(`.*${searchData}.*`, 'i') },
+        status: 0
+      });
+      if (instance) arrSearch = [...instance]
+      if (instance.length == 1) {
+        
+        instance = await productModel.find({ type: instance[0]?.type, status: 0});
+        arrSearch = [...arrSearch,...instance]
+      }
+
+      return require("../standardAPI").jsonSuccessCallApi(arrSearch);
     } catch (err) {
       return require("../standardAPI").jsonFailureCallApi(err.toString());
     }
