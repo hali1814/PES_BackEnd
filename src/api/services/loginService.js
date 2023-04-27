@@ -1,7 +1,7 @@
 var userModel = require("../../utils/models/user");
 var voucherModel = require("../../utils/models/voucher");
 const jsonFailureCallApi = require("../standardAPI").jsonFailureCallApi;
-const { ObjectId } = require('mongodb')
+const { ObjectId } = require("mongodb");
 const loginService = {
   loginService: async function (userName) {
     try {
@@ -13,7 +13,9 @@ const loginService = {
   },
   getCustomer: async function (id) {
     try {
-      const instance = await userModel.findOne({ _id: ObjectId(id), role: "customer" }).select('userName nickName address tokenDevice');
+      const instance = await userModel
+        .findOne({ _id: ObjectId(id), role: "customer" })
+        .select("userName nickName address tokenDevice");
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
       return jsonFailureCallApi(err);
@@ -93,7 +95,7 @@ const loginService = {
           },
         },
         {
-          $unwind: "$resVouchers"
+          $unwind: "$resVouchers",
         },
         {
           $project: {
@@ -105,9 +107,9 @@ const loginService = {
             value: "$resVouchers.value",
             description: "$resVouchers.description",
             images: "$resVouchers.images",
-            quantity: "$vouchers.quantity"
-          }
-        }
+            quantity: "$vouchers.quantity",
+          },
+        },
       ]);
 
       return require("../standardAPI").jsonSuccessCallApi(instance);
@@ -117,7 +119,7 @@ const loginService = {
   },
   getVoucherById: async function (_id) {
     try {
-      const instance = await voucherModel.findOne({_id});
+      const instance = await voucherModel.findOne({ _id });
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
       return jsonFailureCallApi(err);
@@ -125,17 +127,17 @@ const loginService = {
   },
   addVoucher: async function (idVoucher, quantity, _id) {
     try {
-      const instanceVoucher = await voucherModel.findOne({_id : idVoucher});
+      const instanceVoucher = await voucherModel.findOne({ _id: idVoucher });
       if (!instanceVoucher) {
         instanceVoucher = {
-          status: 'success',
+          status: "success",
           data: {
-            message: 'Voucher is not exist !!'
-          }
-        }
+            message: "Voucher is not exist !!",
+          },
+        };
         return require("../standardAPI").jsonSuccessCallApi(data);
       }
-      //add voucher 
+      //add voucher
       const checkExist = await userModel.updateOne(
         { _id: ObjectId(_id) },
         { $inc: { "vouchers.$[vouchers].quantity": quantity } },
@@ -156,30 +158,32 @@ const loginService = {
               vouchers: {
                 date: new Date(),
                 idVoucher: ObjectId(idVoucher),
-                quantity
+                quantity,
               },
             },
           }
         );
       }
-      return require("../standardAPI").jsonSuccessCallApi({message: "Adding voucher successfully !!"});
+      return require("../standardAPI").jsonSuccessCallApi({
+        message: "Adding voucher successfully !!",
+      });
     } catch (err) {
       return jsonFailureCallApi(err.toString());
     }
   },
   deleteVoucher: async function (idVoucher, _id) {
     try {
-      const instanceVoucher = await voucherModel.findOne({_id : idVoucher});
+      const instanceVoucher = await voucherModel.findOne({ _id: idVoucher });
       if (!instanceVoucher) {
         instanceVoucher = {
-          status: 'success',
+          status: "success",
           data: {
-            message: 'Voucher is not exist !!'
-          }
-        }
+            message: "Voucher is not exist !!",
+          },
+        };
         return require("../standardAPI").jsonSuccessCallApi(data);
       }
-      //add voucher 
+      //add voucher
       const checkExist = await userModel.updateOne(
         { _id: ObjectId(_id) },
         { $inc: { "vouchers.$[vouchers].quantity": -1 } },
@@ -192,7 +196,6 @@ const loginService = {
         }
       );
 
-
       const deleteQuantity0 = await userModel.updateOne(
         { _id: ObjectId(_id) },
         { $pull: { vouchers: { quantity: 0 } } },
@@ -204,14 +207,16 @@ const loginService = {
           ],
         }
       );
-      return require("../standardAPI").jsonSuccessCallApi({message: "Delete voucher successfully !!"});
+      return require("../standardAPI").jsonSuccessCallApi({
+        message: "Delete voucher successfully !!",
+      });
     } catch (err) {
       return jsonFailureCallApi(err.toString());
     }
   },
   getAllVoucher: async function () {
     try {
-      const instance = await voucherModel.find()
+      const instance = await voucherModel.find();
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
       return jsonFailureCallApi(err);
@@ -223,11 +228,11 @@ const loginService = {
         { _id },
         {
           $set: {
-            status
+            status,
           },
         },
         {
-          returnOriginal: false
+          returnOriginal: false,
         }
       );
       return require("../standardAPI").jsonSuccessCallApi(instance);
@@ -241,11 +246,11 @@ const loginService = {
         { _id },
         {
           $set: {
-            tokenDevice: token
+            tokenDevice: token,
           },
         },
         {
-          returnOriginal: false
+          returnOriginal: false,
         }
       );
       return require("../standardAPI").jsonSuccessCallApi(instance);
@@ -256,12 +261,63 @@ const loginService = {
   activeUser: async (userName) => {
     try {
       const instance = await userModel.findOneAndUpdate(
-        { userName , status: 2},
-        {$set: {status: 0}}
+        { userName, status: 2 },
+        { $set: { status: 0 } }
       );
       return require("../standardAPI").jsonSuccessCallApi(instance);
     } catch (err) {
       return jsonFailureCallApi(err);
+    }
+  },
+  loginGoogle: async (data) => {
+    try {
+      const tmp = await userModel.findOne({
+        uid: data.uid,
+        email: data.email,
+      });
+      if (tmp) {
+        //update data in the case this email had registered
+        console.log('update gg ne')
+        await userModel.findOneAndUpdate(
+          { uid: data.uid, email: data.email },
+          { $set: { avatar: data.avatar, nickName: data.nickName } },
+          {
+            returnOriginal: false,
+          }
+        );
+        return require("../standardAPI").jsonSuccessCallApi(tmp);
+      }
+
+      const instance = await userModel.insertMany({
+        userName: "", //SDT
+        password: "google",
+        avatar: data.avatar,
+        date: "",
+        email: data.email,
+        role: "customer",
+        address: "",
+        status: 18,
+        voucher: [],
+        uid: data.uid,
+        nickName: data.nickName,
+      });
+      return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err.toString());
+    }
+  },
+  updateNumberPhoneForUserGoogle : async (data) => {
+    try {
+      const instance =  await userModel.findOneAndUpdate(
+          { _id: data._id },
+          { $set: { userName: data.phone } },
+          {
+            returnOriginal: false,
+          }
+        );
+        return require("../standardAPI").jsonSuccessCallApi(instance);
+    } catch (err) {
+      return jsonFailureCallApi(err.toString());
     }
   },
 };

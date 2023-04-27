@@ -184,16 +184,73 @@ const loginController = {
     }
   },
   active: async (req, res, next) => {
-    const {userName} = req.body
+    const { userName } = req.body;
     const data = await loginService.activeUser(userName);
-    if(!data.data){
-      res.json({msg: 'Tai khoan khong ton tai hoac da duoc active'})
-      return
-    }else {
-      data.data = {msg: 'active successfully !!'}
-      require("../injectMethod")(data, res.statusCode, res); 
+    if (!data.data) {
+      res.json({ msg: "Tai khoan khong ton tai hoac da duoc active" });
+      return;
+    } else {
+      data.data = { msg: "active successfully !!" };
+      require("../injectMethod")(data, res.statusCode, res);
     }
-    
+  },
+  loginGoogle: async (req, res, next) => {
+    const { uid, email, nickName, avatar } = req.body;
+
+    let data = await loginService.loginGoogle({ uid, email, nickName, avatar });
+    if (data.status == "success") {
+      if (!data.data) {
+        const content = {
+          message: `Error system.`,
+          title: "Error",
+        };
+        res.json(standardJson.jsonFailure(content, res.statusCode));
+      } else {
+        if (!data.data._id) {
+          data = await loginService.loginGoogle({
+            uid,
+            email,
+            nickName,
+            avatar,
+          });
+        }
+        const { userName, _id } = data.data;
+        const token = jwt.sign(
+          { nickName, userName, _id },
+          process.env.ACCESS_TOKEN_API
+        );
+        const content = {
+          token: token,
+          title: "login successfully !!",
+          nickName: data.data.nickName,
+        };
+        res.json(standardJson.jsonSuccess(content, res.statusCode));
+      }
+    } else {
+      res.json(data);
+    }
+  },
+  addPhoneForGoogle: async (req, res, next) => {
+    const { phone } = req.body;
+    const tokenData = res.locals.haohoa;
+    let data = await loginService.updateNumberPhoneForUserGoogle({
+      phone,
+      _id: tokenData._id,
+    });
+    if (data.data)
+      res.json(
+        standardJson.jsonSuccess(
+          { message: "Adding successfully !!" },
+          res.statusCode
+        )
+      );
+    else
+      res.json(
+        standardJson.jsonFailure(
+          { message: data.err.toString() },
+          res.statusCode
+        )
+      );
   },
 };
 

@@ -15,6 +15,7 @@ const user = new Schema({
     vouchers: Array,
     card: String,
     tokenDevice: String,
+    uid: String,
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });

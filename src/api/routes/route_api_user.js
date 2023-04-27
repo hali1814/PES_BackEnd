@@ -7,6 +7,11 @@ var loginController = require('../controllers/loginController')
 
 //POST login 
 router.post('/login', loginController.login);
+router.post('/login/google', loginController.loginGoogle);
+
+
+
+router.post('/google/addPhone',require('../middlewares/authorization'), loginController.addPhoneForGoogle);
 
 //GET login 
 router.get('/profiles',require('../middlewares/authorization') ,loginController.getProfiles);

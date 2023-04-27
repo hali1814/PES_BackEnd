@@ -153,14 +153,14 @@ const invoiceService = {
           owner: ObjectId(idUser),
           idBill: ObjectId(_id),
           title: `Kiểm duyệt`,
-          message: `Đơn hàng đã được chấp nhận bởi shop`,
+          message: `Đơn hàng ${_id} đã được chấp nhận bởi shop`,
           Date : new Date(),
           status: 0
         }
         await notificationService.addNotification(dataNotification)
         await notificationService.pushNotification({
           title: `PES`,
-          body: `Đơn hàng của bạn đã được chấp nhận bởi shop`,
+          body: `Đơn hàng ${_id} của bạn đã được chấp nhận bởi shop`,
           idBill: _id
         }, tokenDevice)
       }
