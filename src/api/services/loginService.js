@@ -277,7 +277,7 @@ const loginService = {
       });
       if (tmp) {
         //update data in the case this email had registered
-        console.log('update gg ne')
+        console.log(tmp)
         await userModel.findOneAndUpdate(
           { uid: data.uid, email: data.email },
           { $set: { avatar: data.avatar, nickName: data.nickName } },
@@ -289,7 +289,7 @@ const loginService = {
       }
 
       const instance = await userModel.insertMany({
-        userName: "", //SDT
+        userName: data.uid, //SDT
         password: "google",
         avatar: data.avatar,
         date: "",

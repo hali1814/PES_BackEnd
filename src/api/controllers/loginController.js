@@ -215,6 +215,7 @@ const loginController = {
           });
         }
         const { userName, _id } = data.data;
+        console.log(userName, _id, nickName, 'haohoa')
         const token = jwt.sign(
           { nickName, userName, _id },
           process.env.ACCESS_TOKEN_API
